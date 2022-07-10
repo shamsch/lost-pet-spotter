@@ -15,3 +15,11 @@ export interface MapData{
     lat: number;
     lng: number;
 }
+
+export type stackParamList = {
+    AllPost: undefined;
+    PostDetail: undefined; // { id: string };
+    AddPost: undefined;
+    SignIn: undefined;
+    LogIn: undefined;
+  };

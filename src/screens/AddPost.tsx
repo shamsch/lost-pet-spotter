@@ -1,10 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function AddPost() {
+const AddPost = () => {
   return (
     <View>
-      <Text>AddPost</Text>
+      <Text>Hello</Text>
     </View>
   )
 }
+
+export default AddPost;

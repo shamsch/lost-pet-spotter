@@ -6,6 +6,7 @@ export interface Post{
     imgUrl: string;
     userId: string;
     postId: string;
+    type: "SPOTTING" | "LOST" | "FOUND";
     timeStamp?: string;
     email?: string;
     phone?: string;

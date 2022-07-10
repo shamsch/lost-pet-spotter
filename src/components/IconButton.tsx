@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from 'react-native'
+import { View, Text, Pressable, StyleSheet } from 'react-native'
 import React from 'react'
 import {Ionicons} from '@expo/vector-icons'
 
@@ -12,9 +12,14 @@ interface IconButtonProps {
 const IconButton = ({icon, size, color, onPress }:IconButtonProps) => {
   return (
     <Pressable onPress={onPress}>
-      <Ionicons name={icon} size={size} color={color}/>
+      <Ionicons style={styles.button} name={icon} size={size} color={color}/>
     </Pressable>
   )
 }
 
+const styles = StyleSheet.create({
+  button:{
+    marginHorizontal:5,
+  }
+})
 export default IconButton

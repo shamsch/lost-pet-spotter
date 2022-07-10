@@ -6,6 +6,9 @@ export interface Post{
     imgUrl: string;
     userId: string;
     postId: string;
+    timeStamp?: string;
+    email?: string;
+    phone?: string;
 }
 
 export interface MapData{

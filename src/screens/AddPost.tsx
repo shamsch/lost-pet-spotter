@@ -1,11 +1,11 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import AddPostForm from '../components/AddPostForm';
 
 const AddPost = () => {
   return (
-    <View>
-      <Text>Hello</Text>
-    </View>
+    <>
+      <AddPostForm></AddPostForm>
+    </>
   )
 }
 

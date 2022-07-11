@@ -14,6 +14,8 @@ import {stackParamList} from "./src/typescript/types"
 
 const Stack = createStackNavigator<stackParamList>();
 
+//testing wsl commit 
+
 export default function App() {
   return (
     <>

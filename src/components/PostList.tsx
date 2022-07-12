@@ -1,5 +1,5 @@
 import { FlatList } from 'react-native'
-import { Post } from '../typescript/interfaces'
+import { Post } from '../typescript/types'
 import PostItem from './PostItem'
 
 interface PostListProps {

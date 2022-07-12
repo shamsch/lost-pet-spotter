@@ -9,6 +9,7 @@ import SignUp from './src/screens/SignUp';
 import Login from './src/screens/Login';
 import IconButton from './src/components/UI/IconButton';
 import 'react-native-gesture-handler';
+import { Colors } from './src/utils/constant';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,9 @@ export default function App() {
             ({ navigation }) => (
               {
                 "title": "All Postings",
+                "headerStyle": {
+                  "backgroundColor": Colors.secondaryDark,
+                },
                 headerRight: ({ tintColor }) => <IconButton icon="add" size={24} color={tintColor} onPress={() => navigation.navigate("AddPost")}></IconButton>
               }
             )
@@ -31,6 +35,9 @@ export default function App() {
             ({ navigation }) => (
               {
                 "title": "Add A Post",
+                "headerStyle": {
+                  "backgroundColor": Colors.secondaryDark,
+                }
               }
             )
           }/>

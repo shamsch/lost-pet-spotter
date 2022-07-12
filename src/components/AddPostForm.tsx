@@ -1,9 +1,11 @@
 import { Formik } from "formik"
 import { Button, Text, TextInput, View, StyleSheet } from "react-native"
+import { ScrollView } from "react-native-gesture-handler"
 import * as Yup from "yup"
 import { Colors } from "../utils/constant"
 import { ImagePicker } from "./ImagePicker"
 import ReusableButton from "./UI/ReusableButton"
+import ReusablePicker from "./UI/ReusablePicker"
 interface AddPostFormProps {
 
 }
@@ -19,11 +21,13 @@ const AddPostForm = ({ }: AddPostFormProps) => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Formik
         initialValues={{
           title: "",
           body: "",
+          type: "Spotting",
+          image: "",
         }}
         onSubmit={(values, actions) => {
           actions.resetForm()
@@ -51,8 +55,15 @@ const AddPostForm = ({ }: AddPostFormProps) => {
             />
             {touched.body && errors.body && <Text style={styles.errorText}>{errors.body}</Text>}
             
-            <ImagePicker></ImagePicker>
-            
+            <ImagePicker onImagePicked={(value)=> handleChange("image")(value)}/>
+
+            <ReusablePicker
+              options={["Spotting", "Lost"]}
+              text="Post Type"
+              selected={values.type}
+              onChange={(value) => handleChange("type")(value)}
+            />
+
             <ReusableButton
               text="Submit"
               onPress={() => {
@@ -66,7 +77,7 @@ const AddPostForm = ({ }: AddPostFormProps) => {
           </>
         )}
       </Formik>
-    </View>
+    </ScrollView>
   )
 }
 
@@ -77,7 +88,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.secondaryLight,
-    padding: 20,
+    padding: 10,
   },
   input: {
     borderWidth: 1,
@@ -85,11 +96,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     padding: 10,
     margin: 5,
-    width: "100%",
+    width: "98%",
   },
   multilineInput: {
     height: 100,
-    width: "100%",
+    width: "98%",
     textAlignVertical: "top",
   }, 
   errorText:{

@@ -4,7 +4,11 @@ import { Alert, Button, Image, View, Text, StyleSheet } from "react-native";
 import { Colors } from "../utils/constant";
 import ReusableButton from "./UI/ReusableButton";
 
-export const ImagePicker = () => {
+interface ImagePickerProps {
+    onImagePicked: (image: string) => void;
+}
+
+export const ImagePicker = ({onImagePicked}:ImagePickerProps) => {
     const [cameraPermissionInformation, requestPermission] = useCameraPermissions();
     const [image, setImage] = useState<null | string>(null);
 
@@ -27,7 +31,10 @@ export const ImagePicker = () => {
                 aspect: [16, 9],
                 quality: 0.5,
             });
-            setImage(image.cancelled ? null : image.uri);
+            if (!image.cancelled) {
+                setImage(image.uri);
+                onImagePicked(image.uri);
+            }
         }
 
     }
@@ -52,7 +59,7 @@ export const ImagePicker = () => {
 
 const styles = StyleSheet.create({
     imageView: {
-        width: "100%",
+        width: "98%",
         height: 200,
         margin: 5,
         padding: 5,

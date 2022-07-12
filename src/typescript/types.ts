@@ -6,13 +6,13 @@ export interface Post{
     imgUrl: string;
     userId: string;
     postId: string;
-    type: "SPOTTING" | "LOST" | "FOUND";
+    type: "SPOTTED" | "LOST" | "FOUND";
     timeStamp?: string;
     email?: string;
     phone?: string;
 }
 
 export interface MapData{
-    lat: number;
-    lng: number;
+    lat: Post['lat'];
+    lng: Post['lng'];
 }

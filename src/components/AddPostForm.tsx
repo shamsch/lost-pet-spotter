@@ -6,6 +6,7 @@ import { Colors } from "../utils/constant"
 import { ImagePicker } from "./ImagePicker"
 import ReusableButton from "./UI/ReusableButton"
 import ReusablePicker from "./UI/ReusablePicker"
+import Separator from "./UI/Separator"
 interface AddPostFormProps {
 
 }
@@ -74,6 +75,8 @@ const AddPostForm = ({ }: AddPostFormProps) => {
               textColor={Colors.white}
               borderColor={Colors.primaryDark}
             />
+            
+            <Separator/>
           </>
         )}
       </Formik>

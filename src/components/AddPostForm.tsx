@@ -1,21 +1,25 @@
 import { Formik } from "formik"
-import { Button, Text, TextInput, View } from "react-native"
+import { Button, Text, TextInput, View, StyleSheet } from "react-native"
 import * as Yup from "yup"
+import { Colors } from "../utils/constant"
+import { ImagePicker } from "./ImagePicker"
+import ReusableButton from "./UI/ReusableButton"
 interface AddPostFormProps {
 
 }
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required"),
-  body: Yup.string().required("Body is required"),
+  title: Yup.string().required("Please enter a title"),
+  body: Yup.string().required("Please enter a description"),
 })
 
 const AddPostForm = ({ }: AddPostFormProps) => {
   const handleSubmit = (values: any) => {
     console.log(values)
   }
+
   return (
-    <View>
+    <View style={styles.container}>
       <Formik
         initialValues={{
           title: "",
@@ -28,24 +32,38 @@ const AddPostForm = ({ }: AddPostFormProps) => {
         validationSchema={validationSchema}
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, isSubmitting }) => (
-          <View>
+          <>
             <TextInput
               value={values.title}
               onChangeText={handleChange("title")}
               onBlur={handleBlur("title")}
-              placeholder="Title"
-
+              placeholder="Add a concise title"
+              style={styles.input}
             />
-            {touched.title && errors.title && <Text>{errors.title}</Text>}
+            {touched.title && errors.title && <Text style={styles.errorText}>{errors.title}</Text>}
             <TextInput
               value={values.body}
               onChangeText={handleChange("body")}
               onBlur={handleBlur("body")}
-              placeholder="Body"
+              placeholder="Add some helpful description"
+              style={[styles.input, styles.multilineInput]}
+              multiline={true}
             />
-            {touched.body && errors.body && <Text>{errors.body}</Text>}
-            <Button title="Submit" onPress={()=> handleSubmit()} />
-          </View>
+            {touched.body && errors.body && <Text style={styles.errorText}>{errors.body}</Text>}
+            
+            <ImagePicker></ImagePicker>
+            
+            <ReusableButton
+              text="Submit"
+              onPress={() => {
+                handleSubmit()
+              }
+              }
+              backgroundColor= {Colors.primary}
+              textColor={Colors.white}
+              borderColor={Colors.primaryDark}
+            />
+          </>
         )}
       </Formik>
     </View>
@@ -54,3 +72,29 @@ const AddPostForm = ({ }: AddPostFormProps) => {
 
 
 export default AddPostForm;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.secondaryLight,
+    padding: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    backgroundColor: Colors.white,
+    padding: 10,
+    margin: 5,
+    width: "100%",
+  },
+  multilineInput: {
+    height: 100,
+    width: "100%",
+    textAlignVertical: "top",
+  }, 
+  errorText:{
+    color: Colors.error,
+    fontSize: 14,
+    marginBottom: 5
+  }
+});

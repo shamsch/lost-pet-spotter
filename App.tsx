@@ -7,7 +7,7 @@ import PostView from './src/screens/PostView';
 import AddPost from './src/screens/AddPost';
 import SignUp from './src/screens/SignUp';
 import Login from './src/screens/Login';
-import IconButton from './src/components/IconButton';
+import IconButton from './src/components/UI/IconButton';
 import 'react-native-gesture-handler';
 
 const Stack = createStackNavigator();

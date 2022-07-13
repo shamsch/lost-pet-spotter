@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Formik } from "formik";
-import { Button, Text, TextInput, View, StyleSheet } from "react-native";
+import { Text, TextInput, View, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import * as Yup from "yup";
 import { Colors } from "../utils/constant";
@@ -43,8 +43,6 @@ const AddPostForm = ({}: AddPostFormProps) => {
 					values,
 					errors,
 					touched,
-					isValid,
-					isSubmitting,
 				}) => (
 					<>
 						<TextInput
@@ -111,7 +109,7 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		borderWidth: 1,
-		borderColor: Colors.primary,
+		borderColor: Colors.gray,
 		backgroundColor: Colors.white,
 		padding: 10,
 		margin: 5,

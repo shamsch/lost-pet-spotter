@@ -52,7 +52,7 @@ const styles = ({ backgroundColor, borderColor, textColor }: Style) =>
 		},
 		text: {
 			color: textColor,
-			fontSize: 20,
+			fontSize: 15,
 			textAlign: "center",
 		},
 	});

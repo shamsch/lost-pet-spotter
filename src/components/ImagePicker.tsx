@@ -37,7 +37,10 @@ export const ImagePicker = ({ onImagePicked }: ImagePickerProps) => {
 					cameraPermissionInformation &&
 					cameraPermissionInformation.status === PermissionStatus.DENIED
 				) {
-					Alert.alert("You need to enable camera permissions to use this app");
+					Alert.alert(
+						"Insufficent permission",
+						"You need to enable library permissions to use this app"
+					);
 					return false;
 				}
 				return true;
@@ -53,7 +56,10 @@ export const ImagePicker = ({ onImagePicked }: ImagePickerProps) => {
 					libraryPermissionInformation &&
 					libraryPermissionInformation.status === PermissionStatus.DENIED
 				) {
-					Alert.alert("You need to enable library permissions to use this app");
+					Alert.alert(
+						"Insufficent permission",
+						"You need to enable library permissions to use this app"
+					);
 					return false;
 				}
 				return true;

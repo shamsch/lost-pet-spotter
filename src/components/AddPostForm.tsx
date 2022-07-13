@@ -5,6 +5,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import * as Yup from "yup";
 import { Colors } from "../utils/constant";
 import { ImagePicker } from "./ImagePicker";
+import LocationPicker from "./LocationPicker";
 import IconButton from "./UI/IconButton";
 import ReusableButton from "./UI/ReusableButton";
 import ReusablePicker from "./UI/ReusablePicker";
@@ -77,6 +78,8 @@ const AddPostForm = ({}: AddPostFormProps) => {
 							selected={values.type}
 							onChange={(value) => handleChange("type")(value)}
 						/>
+						
+						<LocationPicker/>
 
 						<ReusableButton
 							text="Submit"

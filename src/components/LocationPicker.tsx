@@ -1,12 +1,104 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Alert, Image, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { MapData } from "../typescript/types";
+import {
+    useForegroundPermissions,
+    PermissionStatus,
+    getCurrentPositionAsync,
+    LocationAccuracy,
+} from "expo-location";
+import { getStaticMapUrl } from "../utils/googleMapStatic";
+import ReusableButton from "./UI/ReusableButton";
+import { Colors } from "../utils/constant";
+import IconButton from "./UI/IconButton";
 
 const LocationPicker = () => {
-  return (
-    <View>
-      <Text>LocationPicker</Text>
-    </View>
-  )
-}
+    const [location, setLocation] = useState<MapData | null>(null);
+    const [permissionStatus, requestPermission] = useForegroundPermissions();
 
-export default LocationPicker
+    const getLocationPermission = async () => {
+        if (permissionStatus?.status === PermissionStatus.UNDETERMINED) {
+            const permissionResponse = await requestPermission();
+
+            return permissionResponse.granted;
+        }
+
+        if (permissionStatus?.status === PermissionStatus.DENIED) {
+            Alert.alert(
+                "Insufficient Permissions!",
+                "You need to grant location permissions to use this app."
+            );
+            return false;
+        }
+
+        return true;
+    };
+
+    const getLocation = async () => {
+        const permissionGranted = await getLocationPermission();
+
+        if (permissionGranted) {
+            const location = await getCurrentPositionAsync({
+                accuracy: LocationAccuracy.High,
+            });
+            const { latitude, longitude } = location.coords;
+            setLocation({ lat: latitude, lng: longitude });
+        } else {
+            Alert.alert(
+                "Insufficient Permissions!",
+                "You need to grant location permissions to use this app."
+            );
+        }
+    };
+
+    const toSetLocationStack = () => {
+      console.log("setLocation");
+    }
+
+    const mapUri = location? getStaticMapUrl(location.lat, location.lng) : getStaticMapUrl("61.4978", "23.7610");
+
+    return (
+        <View>
+            <View style={styles.mapView}>
+              <Image 
+                source={{ uri: mapUri }}
+                style={{ width: "100%", height: 200 }}
+              />
+            </View>
+            <View style={styles.buttonView}>
+              <ReusableButton
+                text="Get your Location"
+                textColor="white"
+                backgroundColor= {Colors.secondary}
+                borderColor={Colors.secondaryDark}
+                children={<IconButton icon="map" size={24} color="white"/>}
+                onPress={getLocation}
+              />
+              <ReusableButton
+                text="Set your Location"
+                textColor="white"
+                backgroundColor= {Colors.secondary}
+                borderColor={Colors.secondaryDark}
+                children={<IconButton icon="navigate-circle-outline" size={24} color="white"/>}
+                onPress={toSetLocationStack}
+              />
+            </View>
+        </View>
+    );
+};
+
+export default LocationPicker;
+
+
+const styles = StyleSheet.create({
+    mapView: {
+        marginTop: 10,
+        width: "100%",
+        height: 200,
+    }, 
+    buttonView:{
+        flexDirection: "row",
+        justifyContent: "space-around",
+        marginTop: 10,
+    }
+});

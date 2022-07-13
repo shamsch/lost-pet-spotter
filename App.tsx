@@ -13,6 +13,7 @@ import { Colors } from './src/utils/constant';
 
 const Stack = createStackNavigator();
 
+
 export default function App() {
   return (
     <>

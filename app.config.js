@@ -1,7 +1,12 @@
-{
+import 'dotenv/config';
+
+export default{
   "expo": {
     "name": "lost-pet-spotter",
     "slug": "lost-pet-spotter",
+    "extra":{
+      API_KEY: process.env.GOOGLE_API_KEY,
+    },
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

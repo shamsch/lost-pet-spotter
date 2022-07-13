@@ -20,11 +20,9 @@ const ReusableButton = ({
 }: ReusableButtonProps) => {
 	const style = styles({ backgroundColor, borderColor, textColor });
 	return (
-		<Pressable onPress={onPress}>
-			<View style={style.button}>
-				{children}
-				<Text style={style.text}>{text}</Text>
-			</View>
+		<Pressable onPress={onPress} style={({pressed})=> [style.button, pressed && style.pressed]}>
+			{children}
+			<Text style={style.text}>{text}</Text>
 		</Pressable>
 	);
 };
@@ -54,5 +52,8 @@ const styles = ({ backgroundColor, borderColor, textColor }: Style) =>
 			color: textColor,
 			fontSize: 15,
 			textAlign: "center",
+		},
+		pressed: {
+			opacity: 0.5,
 		},
 	});

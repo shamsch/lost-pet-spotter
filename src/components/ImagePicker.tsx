@@ -1,80 +1,93 @@
 import React, { useState } from "react";
-import { launchCameraAsync, useCameraPermissions, PermissionStatus } from "expo-image-picker";
+import {
+	launchCameraAsync,
+	useCameraPermissions,
+	PermissionStatus,
+} from "expo-image-picker";
 import { Alert, Button, Image, View, Text, StyleSheet } from "react-native";
 import { Colors } from "../utils/constant";
 import ReusableButton from "./UI/ReusableButton";
+import IconButton from "./UI/IconButton";
 
 interface ImagePickerProps {
-    onImagePicked: (image: string) => void;
+	onImagePicked: (image: string) => void;
 }
 
-export const ImagePicker = ({onImagePicked}:ImagePickerProps) => {
-    const [cameraPermissionInformation, requestPermission] = useCameraPermissions();
-    const [image, setImage] = useState<null | string>(null);
+export const ImagePicker = ({ onImagePicked }: ImagePickerProps) => {
+	const [cameraPermissionInformation, requestPermission] =
+		useCameraPermissions();
+	const [image, setImage] = useState<null | string>(null);
 
-    const checkCameraPermission = async () => {
-        if (cameraPermissionInformation && cameraPermissionInformation.status !== PermissionStatus.UNDETERMINED) {
-            const permission = await requestPermission();
-            return permission.granted;
-        }
-        if (cameraPermissionInformation && cameraPermissionInformation.status === PermissionStatus.DENIED) {
-            Alert.alert("You need to enable camera permissions to use this app");
-            return false;
-        }
-        return true;
-    }
+	const checkCameraPermission = async () => {
+		if (
+			cameraPermissionInformation &&
+			cameraPermissionInformation.status !== PermissionStatus.UNDETERMINED
+		) {
+			const permission = await requestPermission();
+			return permission.granted;
+		}
+		if (
+			cameraPermissionInformation &&
+			cameraPermissionInformation.status === PermissionStatus.DENIED
+		) {
+			Alert.alert("You need to enable camera permissions to use this app");
+			return false;
+		}
+		return true;
+	};
 
-    const handleCamera = async () => {
-        if (await checkCameraPermission()) {
-            const image = await launchCameraAsync({
-                allowsEditing: false,
-                aspect: [16, 9],
-                quality: 0.5,
-            });
-            if (!image.cancelled) {
-                setImage(image.uri);
-                onImagePicked(image.uri);
-            }
-        }
+	const handleCamera = async () => {
+		if (await checkCameraPermission()) {
+			const image = await launchCameraAsync({
+				allowsEditing: false,
+				aspect: [16, 9],
+				quality: 0.5,
+			});
+			if (!image.cancelled) {
+				setImage(image.uri);
+				onImagePicked(image.uri);
+			}
+		}
+	};
 
-    }
+	const imageView = image ? (
+		<Image source={{ uri: image }} style={{ width: "100%", height: 190 }} />
+	) : (
+		<Text style={styles.previewText}>No image taken</Text>
+	);
 
-    const imageView = image ? <Image source={{ uri: image }} style={{ width: "100%", height: 190 }} /> : <Text style={styles.previewText}>No image taken</Text>;
-
-    return (
-        <>
-            <View style={styles.imageView}>
-                {imageView}
-            </View>
-            <ReusableButton
-                text="Take a photo"
-                onPress={handleCamera}
-                backgroundColor={Colors.secondary}
-                textColor={Colors.white}
-                borderColor={Colors.secondaryDark}
-            />
-        </>
-    )
-}
+	return (
+		<>
+			<View style={styles.imageView}>{imageView}</View>
+			<ReusableButton
+				text="Take a photo"
+				onPress={handleCamera}
+				backgroundColor={Colors.secondary}
+				textColor={Colors.white}
+				borderColor={Colors.secondaryDark}
+				children={
+					<IconButton icon="camera" size={24} color="white"></IconButton>
+				}
+			/>
+		</>
+	);
+};
 
 const styles = StyleSheet.create({
-    imageView: {
-        width: "98%",
-        height: 200,
-        margin: 5,
-        padding: 5,
-        alignItems: "center",
-        justifyContent: "center",
-        borderWidth: 3,
-        borderColor: Colors.gray,
-        backgroundColor: Colors.white
-    },
-    previewText: {
-        fontSize: 20,
-        fontWeight: "bold",
-        color: Colors.gray
-    }
-
-}
-)
-
+	imageView: {
+		width: "98%",
+		height: 200,
+		margin: 5,
+		padding: 5,
+		alignItems: "center",
+		justifyContent: "center",
+		borderWidth: 3,
+		borderColor: Colors.gray,
+		backgroundColor: Colors.white,
+	},
+	previewText: {
+		fontSize: 20,
+		fontWeight: "bold",
+		color: Colors.gray,
+	},
+});

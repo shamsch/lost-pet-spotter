@@ -7,7 +7,7 @@ import {
 	useMediaLibraryPermissions,
 	MediaTypeOptions,
 } from "expo-image-picker";
-import { Alert, Button, Image, View, Text, StyleSheet } from "react-native";
+import { Alert, Image, View, Text, StyleSheet } from "react-native";
 import { Colors } from "../utils/constant";
 import ReusableButton from "./UI/ReusableButton";
 import IconButton from "./UI/IconButton";
@@ -74,7 +74,7 @@ export const ImagePicker = ({ onImagePicked }: ImagePickerProps) => {
 			const image = await launchImageLibraryAsync({
 				mediaTypes: MediaTypeOptions.Images,
 				allowsEditing: true,
-				aspect: [4, 3],
+				aspect: [16, 9],
 				quality: 1,
 			});
 			if (image.cancelled) {

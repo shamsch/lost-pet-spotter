@@ -5,6 +5,7 @@ import {
 	PermissionStatus,
 	launchImageLibraryAsync,
 	useMediaLibraryPermissions,
+	MediaTypeOptions,
 } from "expo-image-picker";
 import { Alert, Button, Image, View, Text, StyleSheet } from "react-native";
 import { Colors } from "../utils/constant";
@@ -64,7 +65,12 @@ export const ImagePicker = ({ onImagePicked }: ImagePickerProps) => {
 	const handleGallery = async () => {
 		const hasPermission = await checkCameraPermission("library");
 		if (hasPermission) {
-			const image = await launchImageLibraryAsync();
+			const image = await launchImageLibraryAsync({
+				mediaTypes: MediaTypeOptions.Images,
+				allowsEditing: true,
+				aspect: [4, 3],
+				quality: 1,
+			});
 			if (image.cancelled) {
 				return;
 			}
@@ -78,7 +84,7 @@ export const ImagePicker = ({ onImagePicked }: ImagePickerProps) => {
 		const hasPermission = await checkCameraPermission("camera");
 		if (hasPermission) {
 			const image = await launchCameraAsync({
-				allowsEditing: false,
+				allowsEditing: true,
 				aspect: [16, 9],
 				quality: 0.5,
 			});

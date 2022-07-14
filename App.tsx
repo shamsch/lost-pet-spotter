@@ -7,13 +7,15 @@ import PostView from './src/screens/PostView';
 import AddPost from './src/screens/AddPost';
 import SignUp from './src/screens/SignUp';
 import Login from './src/screens/Login';
+import MapScreen from './src/screens/MapScreen';
 import IconButton from './src/components/UI/IconButton';
 import 'react-native-gesture-handler';
 import { Colors } from './src/utils/constant';
-
 import { Provider } from 'react-native-paper';
+import { RootStackParamList } from './src/typescript/types';
 
-const Stack = createStackNavigator();
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 
 export default function App() {
@@ -28,7 +30,7 @@ export default function App() {
                 {
                   "title": "All Postings",
                   "headerStyle": {
-                    "backgroundColor": Colors.secondaryDark,
+                    "backgroundColor": Colors.primaryLight,
                   },
                   headerRight: ({ tintColor }) => <IconButton icon="add" size={24} color={tintColor} onPress={() => navigation.navigate("AddPost")}></IconButton>
                 }
@@ -40,13 +42,23 @@ export default function App() {
                 {
                   "title": "Add A Post",
                   "headerStyle": {
-                    "backgroundColor": Colors.secondaryDark,
+                    "backgroundColor": Colors.primaryLight,
                   }
                 }
               )
             } />
-            <Stack.Screen name="SignIn" component={SignUp} />
+            <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="LogIn" component={Login} />
+            <Stack.Screen name="MapView" component={MapScreen} options={
+              ({ navigation }) => (
+                {
+                  "title": "Select location",
+                  "headerStyle": {
+                    "backgroundColor": Colors.primaryLight,
+                  }
+                }
+              )
+            } />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

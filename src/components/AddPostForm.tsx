@@ -7,17 +7,17 @@ import { Colors } from "../utils/constant";
 import { ImagePicker } from "./ImagePicker";
 import LocationPicker from "./LocationPicker";
 import IconButton from "./UI/IconButton";
+import PostTypeChip from "./UI/PostTypeChip";
 import ReusableButton from "./UI/ReusableButton";
-import ReusablePicker from "./UI/ReusablePicker";
 import Separator from "./UI/Separator";
-interface AddPostFormProps {}
+interface AddPostFormProps { }
 
 const validationSchema = Yup.object().shape({
 	title: Yup.string().required("Please enter a title"),
 	body: Yup.string().required("Please enter a description"),
 });
 
-const AddPostForm = ({}: AddPostFormProps) => {
+const AddPostForm = ({ }: AddPostFormProps) => {
 	const handleSubmit = (values: any) => {
 		console.log(values);
 	};
@@ -56,6 +56,7 @@ const AddPostForm = ({}: AddPostFormProps) => {
 						{touched.title && errors.title && (
 							<Text style={styles.errorText}>{errors.title}</Text>
 						)}
+
 						<TextInput
 							value={values.body}
 							onChangeText={handleChange("body")}
@@ -67,19 +68,30 @@ const AddPostForm = ({}: AddPostFormProps) => {
 						{touched.body && errors.body && (
 							<Text style={styles.errorText}>{errors.body}</Text>
 						)}
+						
+						<View style={styles.chipStyle}>
+							<PostTypeChip
+								type="Spotting"
+								onPress={() =>
+									handleChange("type")("Spotting")
+
+								}
+								isSelected={values.type === "Spotting"}
+							/>
+							<PostTypeChip
+								type="Lost"
+								onPress={() =>
+									handleChange("type")("Lost")
+								}
+								isSelected={values.type === "Lost"}
+							/>
+						</View>
 
 						<ImagePicker
 							onImagePicked={(value) => handleChange("image")(value)}
 						/>
 
-						<ReusablePicker
-							options={["Spotting", "Lost"]}
-							text="Post Type"
-							selected={values.type}
-							onChange={(value) => handleChange("type")(value)}
-						/>
-						
-						<LocationPicker/>
+						<LocationPicker />
 
 						<ReusableButton
 							text="Submit"
@@ -127,5 +139,10 @@ const styles = StyleSheet.create({
 		color: Colors.error,
 		fontSize: 14,
 		marginBottom: 5,
+	},
+	chipStyle: {
+		flexDirection: "row",
+		justifyContent: "flex-start",
+		margin: 5,
 	},
 });

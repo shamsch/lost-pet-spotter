@@ -60,7 +60,7 @@ const LocationPicker = ({onLocationPicked}:LocationPickerProps) => {
       console.log("setLocation");
     }
 
-    const mapUri = location? getStaticMapUrl(location.lat, location.lng) : getStaticMapUrl(61.4978, 23.7610); //defaults to Tampere, Finland
+    const mapUri = location?.lat && location.lng ? getStaticMapUrl(location.lat, location.lng) : getStaticMapUrl("61.4978", "23.7610"); //defaults to Tampere, Finland
 
     return (
         <View>

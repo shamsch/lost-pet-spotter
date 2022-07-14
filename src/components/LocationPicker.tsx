@@ -1,5 +1,5 @@
 import { View, Alert, Image, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { MapData, RootStackParamList } from "../typescript/types";
 import {
     useForegroundPermissions,
@@ -16,12 +16,19 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 interface LocationPickerProps {
     onLocationPicked: (location: MapData) => void;
+    latitude: number;
+    longitude: number;
 }
 
-const LocationPicker = ({onLocationPicked}:LocationPickerProps) => {
-    const [location, setLocation] = useState<MapData | null>(null);
+interface locationState {
+    latitude: number;
+    longitude: number;
+}
+
+const LocationPicker = ({ onLocationPicked, latitude, longitude }: LocationPickerProps) => {
     const [permissionStatus, requestPermission] = useForegroundPermissions();
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+    const [location, setLocation] = useState<null | locationState>(null);
 
     const getLocationPermission = async () => {
         if (permissionStatus?.status === PermissionStatus.UNDETERMINED) {
@@ -49,8 +56,8 @@ const LocationPicker = ({onLocationPicked}:LocationPickerProps) => {
                 accuracy: LocationAccuracy.High,
             });
             const { latitude, longitude } = location.coords;
-            setLocation({ lat: String(latitude), lng: String(longitude) });
             onLocationPicked({ lat: String(latitude), lng: String(longitude) });
+            setLocation({ latitude, longitude });
         } else {
             Alert.alert(
                 "Insufficient Permissions!",
@@ -60,36 +67,41 @@ const LocationPicker = ({onLocationPicked}:LocationPickerProps) => {
     };
 
     const toSetLocationStack = () => {
-        navigation.navigate("MapView");
+        navigation.navigate("MapView", { latitude: String(latitude), longitude: String(longitude) });
     }
 
-    const mapUri = location?.lat && location?.lng ? getStaticMapUrl(location.lat, location.lng) : getStaticMapUrl("61.4978", "23.7610"); //defaults to Tampere, Finland
+    useEffect(() => {
+        setLocation({ latitude, longitude });
+    }
+        , [latitude, longitude]);
+
+    const mapUri = getStaticMapUrl(String(location?.latitude), String(location?.longitude));
 
     return (
         <View>
             <View style={styles.mapView}>
-              <Image 
-                source={{ uri: mapUri }}
-                style={{ width: "100%", height: 200 }}
-              />
+                <Image
+                    source={{ uri: mapUri }}
+                    style={{ width: "100%", height: 200 }}
+                />
             </View>
             <View style={styles.buttonView}>
-              <ReusableButton
-                text="Get your Location"
-                textColor="white"
-                backgroundColor= {Colors.secondary}
-                borderColor={Colors.secondaryDark}
-                children={<IconButton icon="map" size={24} color="white"/>}
-                onPress={getLocation}
-              />
-              <ReusableButton
-                text="Set your Location"
-                textColor="white"
-                backgroundColor= {Colors.secondary}
-                borderColor={Colors.secondaryDark}
-                children={<IconButton icon="navigate-circle-outline" size={24} color="white"/>}
-                onPress={toSetLocationStack}
-              />
+                <ReusableButton
+                    text="Get Location"
+                    textColor="white"
+                    backgroundColor={Colors.secondary}
+                    borderColor={Colors.secondaryDark}
+                    children={<IconButton icon="map" size={24} color="white" />}
+                    onPress={getLocation}
+                />
+                <ReusableButton
+                    text="Set Location"
+                    textColor="white"
+                    backgroundColor={Colors.secondary}
+                    borderColor={Colors.secondaryDark}
+                    children={<IconButton icon="navigate-circle-outline" size={24} color="white" />}
+                    onPress={toSetLocationStack}
+                />
             </View>
         </View>
     );
@@ -103,8 +115,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
         width: "100%",
         height: 200,
-    }, 
-    buttonView:{
+    },
+    buttonView: {
         flexDirection: "row",
         justifyContent: "space-around",
         marginTop: 10,

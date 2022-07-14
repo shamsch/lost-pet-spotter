@@ -1,4 +1,4 @@
-import { Ionicons } from "@expo/vector-icons";
+import { useRoute } from "@react-navigation/native";
 import { Formik } from "formik";
 import { Text, TextInput, View, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
@@ -11,17 +11,26 @@ import IconButton from "./UI/IconButton";
 import PostTypeChip from "./UI/PostTypeChip";
 import ReusableButton from "./UI/ReusableButton";
 import Separator from "./UI/Separator";
-interface AddPostFormProps { }
+interface AddPostFormProps {
+
+}
 
 const validationSchema = Yup.object().shape({
 	title: Yup.string().required("Please enter a title"),
 	body: Yup.string().required("Please enter a description"),
 });
 
+interface IParams {
+	latitude: string | undefined;
+	longitude: string | undefined;
+}
 const AddPostForm = ({ }: AddPostFormProps) => {
+	const params = useRoute().params as IParams;
+
 	const handleSubmit = (values: any) => {
 		console.log(values);
 	};
+
 	const initialValues: FormInitialValue = {
 		title: "",
 		body: "",
@@ -30,6 +39,7 @@ const AddPostForm = ({ }: AddPostFormProps) => {
 		lat: "61.4978", //defaults to Tampere, Finland
 		lng: "23.7610",
 	}
+
 	return (
 		<ScrollView style={styles.container}>
 			<Formik
@@ -44,6 +54,7 @@ const AddPostForm = ({ }: AddPostFormProps) => {
 					handleChange,
 					handleBlur,
 					handleSubmit,
+					setFieldValue,
 					values,
 					errors,
 					touched,
@@ -94,11 +105,24 @@ const AddPostForm = ({ }: AddPostFormProps) => {
 							onImagePicked={(value) => handleChange("imgUrl")(value)}
 						/>
 
-						<LocationPicker onLocationPicked={(location) => {
-							handleChange("lat")(String(location.lat))
-							handleChange("lng")(String(location.lng))
+
+						{
+							params?.latitude && values.lat !== params.latitude && setFieldValue("lat", params.latitude)
 						}
-						} />
+
+						{
+							params?.longitude && values.lng !== params.longitude && setFieldValue("lng", params.longitude)
+						}
+
+
+						<LocationPicker
+							latitude={Number(values.lat)}
+							longitude={Number(values.lng)}
+							onLocationPicked={(location) => {
+								setFieldValue("lat", location.lat?.toString());
+								setFieldValue("lng", location.lng?.toString());
+							}
+							} />
 
 						<ReusableButton
 							text="Submit"

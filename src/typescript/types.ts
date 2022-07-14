@@ -33,11 +33,10 @@ export interface FormInitialValue{
 }
 
 export type RootStackParamList = {
-    Map: undefined;
     AllPost: undefined;
     PostDetail: undefined;
-    AddPost: undefined;
+    AddPost: {latitude: string | undefined, longitude: string| undefined};
     SignUp: undefined;
     LogIn: undefined;
-    MapView: undefined;
+    MapView: {latitude?: string, longitude?: string};
 }

@@ -1,27 +1,27 @@
 import { useState } from 'react'
 import { View, Text } from 'react-native'
-import MapView, { Marker} from 'react-native-maps'
+import MapView, { Marker, MapEvent } from 'react-native-maps'
+import { string } from 'yup'
 import { MapData } from '../typescript/types'
 
 interface MapProps {
-
+  latitude: number | null
+  longitude: number | null
+  setLatitude: React.Dispatch<React.SetStateAction<string | null>>
+  setLongitude: React.Dispatch<React.SetStateAction<string | null>>
 }
 
-const Map = () => {
-  const [selectedLocation, setSelectedLocation]= useState<MapData|null>()
-
+const Map = ({ latitude, longitude, setLatitude, setLongitude }: MapProps) => {
   const region = {
-    latitude: 61.4978, //defaults to Tampere, Finland
-    longitude: 23.7610,
+    latitude: latitude ? latitude : 61.4978, //defaults to Tampere, Finland
+    longitude: longitude ? longitude : 23.7610,
     latitudeDelta: 0.0922, // zoom level, this works
     longitudeDelta: 0.0421,
   }
 
-  const handleMapPress = (e: any) => {
-    setSelectedLocation({
-      lat: e.nativeEvent.coordinate.latitude,
-      lng: e.nativeEvent.coordinate.longitude,
-    })
+  const handleMapPress = (e: MapEvent) => {
+    setLatitude(String(e.nativeEvent.coordinate.latitude));
+    setLongitude(String(e.nativeEvent.coordinate.longitude));
   }
 
   return (
@@ -31,15 +31,17 @@ const Map = () => {
         initialRegion={region}
         onPress={handleMapPress}
       >
-        {selectedLocation && (
+        {latitude && longitude ? (
           <Marker
             title='Selected Location'
             coordinate={{
-              latitude: Number(selectedLocation.lat),
-              longitude: Number(selectedLocation.lng),
+              latitude: latitude,
+              longitude: longitude,
             }}
           />
-        )}
+        ) :
+          null}
+
       </MapView>
     </>
   )

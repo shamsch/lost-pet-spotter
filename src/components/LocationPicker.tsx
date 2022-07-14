@@ -46,8 +46,8 @@ const LocationPicker = ({onLocationPicked}:LocationPickerProps) => {
                 accuracy: LocationAccuracy.High,
             });
             const { latitude, longitude } = location.coords;
-            setLocation({ lat: String(latitude), lng: String(latitude) });
-            onLocationPicked({ lat: String(latitude), lng: String(latitude) });
+            setLocation({ lat: String(latitude), lng: String(longitude) });
+            onLocationPicked({ lat: String(latitude), lng: String(longitude) });
         } else {
             Alert.alert(
                 "Insufficient Permissions!",
@@ -60,7 +60,7 @@ const LocationPicker = ({onLocationPicked}:LocationPickerProps) => {
       console.log("setLocation");
     }
 
-    const mapUri = location?.lat && location.lng ? getStaticMapUrl(location.lat, location.lng) : getStaticMapUrl("61.4978", "23.7610"); //defaults to Tampere, Finland
+    const mapUri = location?.lat && location?.lng ? getStaticMapUrl(location.lat, location.lng) : getStaticMapUrl("61.4978", "23.7610"); //defaults to Tampere, Finland
 
     return (
         <View>

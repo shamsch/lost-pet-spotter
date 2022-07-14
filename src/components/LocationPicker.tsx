@@ -1,6 +1,6 @@
 import { View, Alert, Image, StyleSheet } from "react-native";
 import React, { useState } from "react";
-import { MapData } from "../typescript/types";
+import { MapData, RootStackParamList } from "../typescript/types";
 import {
     useForegroundPermissions,
     PermissionStatus,
@@ -11,6 +11,8 @@ import { getStaticMapUrl } from "../utils/googleMapStatic";
 import ReusableButton from "./UI/ReusableButton";
 import { Colors } from "../utils/constant";
 import IconButton from "./UI/IconButton";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from '@react-navigation/stack';
 
 interface LocationPickerProps {
     onLocationPicked: (location: MapData) => void;
@@ -19,6 +21,7 @@ interface LocationPickerProps {
 const LocationPicker = ({onLocationPicked}:LocationPickerProps) => {
     const [location, setLocation] = useState<MapData | null>(null);
     const [permissionStatus, requestPermission] = useForegroundPermissions();
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
     const getLocationPermission = async () => {
         if (permissionStatus?.status === PermissionStatus.UNDETERMINED) {
@@ -57,7 +60,7 @@ const LocationPicker = ({onLocationPicked}:LocationPickerProps) => {
     };
 
     const toSetLocationStack = () => {
-      console.log("setLocation");
+        navigation.navigate("MapView");
     }
 
     const mapUri = location?.lat && location?.lng ? getStaticMapUrl(location.lat, location.lng) : getStaticMapUrl("61.4978", "23.7610"); //defaults to Tampere, Finland

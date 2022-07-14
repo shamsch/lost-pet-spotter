@@ -31,3 +31,13 @@ export interface FormInitialValue{
     imgUrl: string;
     type: PostType;
 }
+
+export type RootStackParamList = {
+    Map: undefined;
+    AllPost: undefined;
+    PostDetail: undefined;
+    AddPost: undefined;
+    SignUp: undefined;
+    LogIn: undefined;
+    MapView: undefined;
+}

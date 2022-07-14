@@ -105,9 +105,9 @@ const AddPostForm = ({ }: AddPostFormProps) => {
 							onPress={() => {
 								handleSubmit();
 							}}
-							backgroundColor={Colors.primary}
+							backgroundColor={Colors.secondaryDark}
 							textColor={Colors.white}
-							borderColor={Colors.primaryDark}
+							borderColor={Colors.blackLight}
 							children={
 								<IconButton icon="send" size={24} color="white"></IconButton>
 							}

@@ -12,7 +12,11 @@ import ReusableButton from "./UI/ReusableButton";
 import { Colors } from "../utils/constant";
 import IconButton from "./UI/IconButton";
 
-const LocationPicker = () => {
+interface LocationPickerProps {
+    onLocationPicked: (location: MapData) => void;
+}
+
+const LocationPicker = ({onLocationPicked}:LocationPickerProps) => {
     const [location, setLocation] = useState<MapData | null>(null);
     const [permissionStatus, requestPermission] = useForegroundPermissions();
 
@@ -42,7 +46,8 @@ const LocationPicker = () => {
                 accuracy: LocationAccuracy.High,
             });
             const { latitude, longitude } = location.coords;
-            setLocation({ lat: latitude, lng: longitude });
+            setLocation({ lat: String(latitude), lng: String(latitude) });
+            onLocationPicked({ lat: String(latitude), lng: String(latitude) });
         } else {
             Alert.alert(
                 "Insufficient Permissions!",
@@ -55,7 +60,7 @@ const LocationPicker = () => {
       console.log("setLocation");
     }
 
-    const mapUri = location? getStaticMapUrl(location.lat, location.lng) : getStaticMapUrl("61.4978", "23.7610");
+    const mapUri = location? getStaticMapUrl(location.lat, location.lng) : getStaticMapUrl(61.4978, 23.7610); //defaults to Tampere, Finland
 
     return (
         <View>

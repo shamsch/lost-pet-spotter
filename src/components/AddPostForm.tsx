@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import { Text, TextInput, View, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import * as Yup from "yup";
+import { FormInitialValue, PostType } from "../typescript/types";
 import { Colors } from "../utils/constant";
 import { ImagePicker } from "./ImagePicker";
 import LocationPicker from "./LocationPicker";
@@ -21,16 +22,18 @@ const AddPostForm = ({ }: AddPostFormProps) => {
 	const handleSubmit = (values: any) => {
 		console.log(values);
 	};
-
+	const initialValues: FormInitialValue = {
+		title: "",
+		body: "",
+		type: PostType.Spotting,
+		imgUrl: "",
+		lat: "61.4978", //defaults to Tampere, Finland
+		lng: "23.7610",
+	}
 	return (
 		<ScrollView style={styles.container}>
 			<Formik
-				initialValues={{
-					title: "",
-					body: "",
-					type: "Spotting",
-					image: "",
-				}}
+				initialValues={initialValues}
 				onSubmit={(values, actions) => {
 					actions.resetForm();
 					handleSubmit(values);
@@ -68,7 +71,7 @@ const AddPostForm = ({ }: AddPostFormProps) => {
 						{touched.body && errors.body && (
 							<Text style={styles.errorText}>{errors.body}</Text>
 						)}
-						
+
 						<View style={styles.chipStyle}>
 							<PostTypeChip
 								type="Spotting"
@@ -88,10 +91,14 @@ const AddPostForm = ({ }: AddPostFormProps) => {
 						</View>
 
 						<ImagePicker
-							onImagePicked={(value) => handleChange("image")(value)}
+							onImagePicked={(value) => handleChange("imgUrl")(value)}
 						/>
 
-						<LocationPicker />
+						<LocationPicker onLocationPicked={(location) => {
+							handleChange("lat")(String(location.lat))
+							handleChange("lng")(String(location.lng))
+						}
+						} />
 
 						<ReusableButton
 							text="Submit"

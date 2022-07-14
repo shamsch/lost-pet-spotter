@@ -105,7 +105,7 @@ export const ImagePicker = ({ onImagePicked }: ImagePickerProps) => {
 	const imageView = image ? (
 		<Image source={{ uri: image }} style={{ width: "100%", height: 190 }} />
 	) : (
-		<Text style={styles.previewText}>No image taken or choosen</Text>
+		<Text style={styles.previewText}>No image taken or chosen</Text>
 	);
 
 	return (
@@ -127,7 +127,7 @@ export const ImagePicker = ({ onImagePicked }: ImagePickerProps) => {
 
 				<View style={styles.button}>
 					<ReusableButton
-						text="Choose from gallery"
+						text="Open gallery"
 						onPress={handleGallery}
 						backgroundColor={Colors.secondary}
 						textColor={Colors.white}

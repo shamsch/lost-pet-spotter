@@ -30,15 +30,13 @@ const Map = ({ latitude, longitude, setLatitude, setLongitude }: MapProps) => {
 				initialRegion={region}
 				onPress={handleMapPress}
 			>
-				{latitude && longitude ? (
-					<Marker
-						title="Selected Location"
-						coordinate={{
-							latitude: latitude,
-							longitude: longitude,
-						}}
-					/>
-				) : null}
+				<Marker
+					title="Selected Location"
+					coordinate={{
+						latitude: latitude,
+						longitude: longitude,
+					}}
+				/>
 			</MapView>
 		</>
 	);

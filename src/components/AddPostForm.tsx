@@ -2,7 +2,7 @@ import { TextInput, View, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { PostType } from "../typescript/types";
 import { Colors } from "../utils/constant";
-import useStore from "../zustand/store";
+import useFormStore from "../zustand/store";
 import { ImagePicker } from "./ImagePicker";
 import LocationPicker from "./LocationPicker";
 import IconButton from "./UI/IconButton";
@@ -26,7 +26,7 @@ const AddPostForm = ({}: AddPostFormProps) => {
 		type,
 		setType,
 		setAllToDefault,
-	} = useStore();
+	} = useFormStore();
 
 	const handleSubmit = () => {
 		console.log("values", { title, body, latitude, longitude, image, type });
@@ -64,16 +64,9 @@ const AddPostForm = ({}: AddPostFormProps) => {
 					/>
 				</View>
 
-				<ImagePicker onImagePicked={(value) => setImage(value)} image={image} />
+				<ImagePicker />
 
-				<LocationPicker
-					latitude={latitude}
-					longitude={longitude}
-					onLocationPicked={(location) => {
-						setLatitude(Number(location.lat));
-						setLongitude(Number(location.lng));
-					}}
-				/>
+				<LocationPicker />
 
 				<ReusableButton
 					text="Submit"

@@ -13,25 +13,16 @@ import { Colors } from "../utils/constant";
 import IconButton from "./UI/IconButton";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import useFormStore from "../zustand/store";
 
-interface LocationPickerProps {
-	onLocationPicked: (location: MapData) => void;
-	latitude: number;
-	longitude: number;
-}
-
-const LocationPicker = ({
-	onLocationPicked,
-	latitude,
-	longitude,
-}: LocationPickerProps) => {
+const LocationPicker = () => {
+	const { latitude, longitude, setLatitude, setLongitude } = useFormStore();
 	const [permissionStatus, requestPermission] = useForegroundPermissions();
 	const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
 	const getLocationPermission = async () => {
 		if (permissionStatus?.status === PermissionStatus.UNDETERMINED) {
 			const permissionResponse = await requestPermission();
-
 			return permissionResponse.granted;
 		}
 
@@ -54,7 +45,8 @@ const LocationPicker = ({
 				accuracy: LocationAccuracy.High,
 			});
 			const { latitude, longitude } = location.coords;
-			onLocationPicked({ lat: latitude, lng: longitude });
+			setLatitude(latitude);
+			setLongitude(longitude);
 		} else {
 			Alert.alert(
 				"Insufficient Permissions!",

@@ -11,13 +11,10 @@ import { Alert, Image, View, Text, StyleSheet } from "react-native";
 import { Colors } from "../utils/constant";
 import ReusableButton from "./UI/ReusableButton";
 import IconButton from "./UI/IconButton";
+import useFormStore from "../zustand/store";
 
-interface ImagePickerProps {
-	image: string;
-	onImagePicked: (image: string) => void;
-}
-
-export const ImagePicker = ({ image, onImagePicked }: ImagePickerProps) => {
+export const ImagePicker = () => {
+	const { image, setImage } = useFormStore();
 	const [cameraPermissionInformation, requestPermission] =
 		useCameraPermissions();
 	const [libraryPermissionInformation, requestLibraryPermission] =
@@ -80,7 +77,7 @@ export const ImagePicker = ({ image, onImagePicked }: ImagePickerProps) => {
 			if (image.cancelled) {
 				return;
 			}
-			onImagePicked(image.uri);
+			setImage(image.uri);
 		}
 		return null;
 	};
@@ -94,7 +91,7 @@ export const ImagePicker = ({ image, onImagePicked }: ImagePickerProps) => {
 				quality: 0.5,
 			});
 			if (!image.cancelled) {
-				onImagePicked(image.uri);
+				setImage(image.uri);
 			}
 		}
 		return null;

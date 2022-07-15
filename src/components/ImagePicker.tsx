@@ -13,15 +13,15 @@ import ReusableButton from "./UI/ReusableButton";
 import IconButton from "./UI/IconButton";
 
 interface ImagePickerProps {
+	image: string;
 	onImagePicked: (image: string) => void;
 }
 
-export const ImagePicker = ({ onImagePicked }: ImagePickerProps) => {
+export const ImagePicker = ({ image, onImagePicked }: ImagePickerProps) => {
 	const [cameraPermissionInformation, requestPermission] =
 		useCameraPermissions();
 	const [libraryPermissionInformation, requestLibraryPermission] =
 		useMediaLibraryPermissions();
-	const [image, setImage] = useState<null | string>(null);
 
 	const checkCameraPermission = async (type: string) => {
 		switch (type) {
@@ -80,7 +80,6 @@ export const ImagePicker = ({ onImagePicked }: ImagePickerProps) => {
 			if (image.cancelled) {
 				return;
 			}
-			setImage(image.uri);
 			onImagePicked(image.uri);
 		}
 		return null;
@@ -95,7 +94,6 @@ export const ImagePicker = ({ onImagePicked }: ImagePickerProps) => {
 				quality: 0.5,
 			});
 			if (!image.cancelled) {
-				setImage(image.uri);
 				onImagePicked(image.uri);
 			}
 		}

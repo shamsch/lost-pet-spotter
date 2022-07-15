@@ -10,7 +10,7 @@ interface FormState {
 	setLatitude: (latitude: number) => void;
 	longitude: number;
 	setLongitude: (longitude: number) => void;
-	image: string | null;
+	image: string;
 	setImage: (image: string) => void;
 	type: PostType;
 	setType: (type: PostType) => void;

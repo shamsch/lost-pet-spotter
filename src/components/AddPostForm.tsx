@@ -65,7 +65,7 @@ const AddPostForm = ({}: AddPostFormProps) => {
 					/>
 				</View>
 
-				<ImagePicker onImagePicked={(value) => setImage(value)} />
+				<ImagePicker onImagePicked={(value) => setImage(value)} image={image} />
 
 				<LocationPicker
 					latitude={latitude}

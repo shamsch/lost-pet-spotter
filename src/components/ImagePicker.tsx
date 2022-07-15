@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
 	launchCameraAsync,
 	useCameraPermissions,
@@ -11,17 +11,14 @@ import { Alert, Image, View, Text, StyleSheet } from "react-native";
 import { Colors } from "../utils/constant";
 import ReusableButton from "./UI/ReusableButton";
 import IconButton from "./UI/IconButton";
+import useFormStore from "../zustand/store";
 
-interface ImagePickerProps {
-	onImagePicked: (image: string) => void;
-}
-
-export const ImagePicker = ({ onImagePicked }: ImagePickerProps) => {
+export const ImagePicker = () => {
+	const { image, setImage } = useFormStore();
 	const [cameraPermissionInformation, requestPermission] =
 		useCameraPermissions();
 	const [libraryPermissionInformation, requestLibraryPermission] =
 		useMediaLibraryPermissions();
-	const [image, setImage] = useState<null | string>(null);
 
 	const checkCameraPermission = async (type: string) => {
 		switch (type) {
@@ -81,7 +78,6 @@ export const ImagePicker = ({ onImagePicked }: ImagePickerProps) => {
 				return;
 			}
 			setImage(image.uri);
-			onImagePicked(image.uri);
 		}
 		return null;
 	};
@@ -96,7 +92,6 @@ export const ImagePicker = ({ onImagePicked }: ImagePickerProps) => {
 			});
 			if (!image.cancelled) {
 				setImage(image.uri);
-				onImagePicked(image.uri);
 			}
 		}
 		return null;

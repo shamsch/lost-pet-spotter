@@ -1,7 +1,6 @@
-import { useRoute } from "@react-navigation/native";
-import { Text, TextInput, View, StyleSheet } from "react-native";
+import { TextInput, View, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { FormInitialValue, PostType } from "../typescript/types";
+import { PostType } from "../typescript/types";
 import { Colors } from "../utils/constant";
 import useStore from "../zustand/store";
 import { ImagePicker } from "./ImagePicker";

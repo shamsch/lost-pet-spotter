@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { Text, StyleSheet, Pressable } from "react-native";
 import React from "react";
 
 interface ReusableButtonProps {
@@ -20,7 +20,10 @@ const ReusableButton = ({
 }: ReusableButtonProps) => {
 	const style = styles({ backgroundColor, borderColor, textColor });
 	return (
-		<Pressable onPress={onPress} style={({pressed})=> [style.button, pressed && style.pressed]}>
+		<Pressable
+			onPress={onPress}
+			style={({ pressed }) => [style.button, pressed && style.pressed]}
+		>
 			{children}
 			<Text style={style.text}>{text}</Text>
 		</Pressable>

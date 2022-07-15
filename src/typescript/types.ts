@@ -23,15 +23,6 @@ export interface MapData {
 	lng: Post["lng"];
 }
 
-export interface FormInitialValue {
-	title: string;
-	body: string;
-	lat: string;
-	lng: string;
-	imgUrl: string;
-	type: PostType;
-}
-
 export type RootStackParamList = {
 	AllPost: undefined;
 	PostDetail: undefined;

@@ -1,7 +1,4 @@
-import { useState } from "react";
-import { View, Text } from "react-native";
 import MapView, { Marker, MapEvent, Region } from "react-native-maps";
-import { MapData } from "../typescript/types";
 
 interface MapProps {
 	latitude: number;

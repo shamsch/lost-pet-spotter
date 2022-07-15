@@ -1,5 +1,5 @@
 import { View, Alert, Image, StyleSheet } from "react-native";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React from "react";
 import { MapData, RootStackParamList } from "../typescript/types";
 import {
 	useForegroundPermissions,

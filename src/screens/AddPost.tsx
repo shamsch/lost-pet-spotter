@@ -1,17 +1,12 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react'
-import AddPostForm from '../components/AddPostForm';
-import { RootStackParamList } from '../typescript/types';
+import React from "react";
+import AddPostForm from "../components/AddPostForm";
 
 const AddPost = () => {
-
-
-  return (
-    <>
-      <AddPostForm
-      />
-    </>
-  )
-}
+	return (
+		<>
+			<AddPostForm />
+		</>
+	);
+};
 
 export default AddPost;

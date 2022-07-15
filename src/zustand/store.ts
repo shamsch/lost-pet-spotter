@@ -1,5 +1,6 @@
 import create from "zustand";
 import { PostType } from "../typescript/types";
+import { DEFAULT_LOCATION } from "../utils/constant";
 
 interface FormState {
 	title: string;
@@ -34,8 +35,8 @@ const useFormStore = create<FormState>((set) => ({
 		set(() => ({
 			title: "",
 			body: "",
-			latitude: 61.4978,
-			longitude: 23.761,
+			latitude: DEFAULT_LOCATION.latitude,
+			longitude: DEFAULT_LOCATION.longitude,
 			image: "",
 			type: PostType.Spotting,
 		})),

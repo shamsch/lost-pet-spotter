@@ -19,3 +19,9 @@ export const Colors = {
     success: '#afe1af',
     warning: '#ffac1c',
 }
+
+// default location to Tampere, Finland where the app is developed
+export const DEFAULT_LOCATION = {
+    latitude: 61.4978,
+    longitude: 23.761,
+}

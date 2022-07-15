@@ -1,6 +1,5 @@
 import { Form, FormValidatorReturn } from "../typescript/types";
-
-
+import { DEFAULT_LOCATION } from "./constant";
 
 export const formValidator = (form: Form): FormValidatorReturn => {
     const errors: FormValidatorReturn = {};
@@ -10,7 +9,7 @@ export const formValidator = (form: Form): FormValidatorReturn => {
     if (!form.body) {
         errors.body = "Body is required";
     }
-    if(form.latitude === 61.4978 || form.longitude === 23.761){
+    if(form.latitude === DEFAULT_LOCATION.latitude || form.longitude === DEFAULT_LOCATION.longitude){
         errors.location = "Location is not yet set, please set or get location";
     }
     return errors;

@@ -11,6 +11,20 @@ export interface Post {
 	email?: string;
 	phone?: string;
 }
+export interface Form{
+	title: string;
+	body: string;
+	latitude: number;
+	longitude: number;
+	type: PostType;
+	image?: string;
+}
+
+export type FormValidatorReturn = {
+    title?: string;
+	body?: string;
+	location?: string;
+};
 
 export enum PostType {
 	Spotting = "Spotting",
@@ -31,3 +45,4 @@ export type RootStackParamList = {
 	LogIn: undefined;
 	MapView: undefined;
 };
+

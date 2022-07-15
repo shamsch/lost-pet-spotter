@@ -1,7 +1,9 @@
-import { TextInput, View, StyleSheet } from "react-native";
+import { useState } from "react";
+import { TextInput, View, StyleSheet, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { PostType } from "../typescript/types";
+import { Form, FormValidatorReturn, PostType } from "../typescript/types";
 import { Colors } from "../utils/constant";
+import { formValidator } from "../utils/formValidator";
 import useFormStore from "../zustand/store";
 import { ImagePicker } from "./ImagePicker";
 import LocationPicker from "./LocationPicker";
@@ -9,28 +11,37 @@ import IconButton from "./UI/IconButton";
 import PostTypeChip from "./UI/PostTypeChip";
 import ReusableButton from "./UI/ReusableButton";
 import Separator from "./UI/Separator";
-interface AddPostFormProps {}
+interface AddPostFormProps { }
 
-const AddPostForm = ({}: AddPostFormProps) => {
+const AddPostForm = ({ }: AddPostFormProps) => {
 	const {
 		title,
 		setTitle,
 		body,
 		setBody,
 		latitude,
-		setLatitude,
 		longitude,
-		setLongitude,
 		image,
-		setImage,
 		type,
 		setType,
 		setAllToDefault,
 	} = useFormStore();
 
+	const [errors, setErrors] = useState<FormValidatorReturn|undefined>()
+
 	const handleSubmit = () => {
-		console.log("values", { title, body, latitude, longitude, image, type });
-		setAllToDefault();
+		const formValues: Form = {
+			title,
+			body,
+			latitude,
+			longitude,
+			image,
+			type,
+		};
+		setErrors(formValidator(formValues));
+		if (!errors?.body && !errors?.title && !errors?.location) {
+			setAllToDefault();
+		}
 	};
 
 	return (
@@ -43,6 +54,8 @@ const AddPostForm = ({}: AddPostFormProps) => {
 					style={styles.input}
 				/>
 
+				{errors?.title && <Text style={styles.errorText}>{errors.title}</Text>}
+
 				<TextInput
 					value={body}
 					onChangeText={(text) => setBody(text)}
@@ -50,6 +63,8 @@ const AddPostForm = ({}: AddPostFormProps) => {
 					style={[styles.input, styles.multilineInput]}
 					multiline={true}
 				/>
+				
+				{errors?.body && <Text style={styles.errorText}>{errors.body}</Text>}
 
 				<View style={styles.chipStyle}>
 					<PostTypeChip
@@ -67,6 +82,8 @@ const AddPostForm = ({}: AddPostFormProps) => {
 				<ImagePicker />
 
 				<LocationPicker />
+
+				{errors?.location && <Text style={styles.errorText}>{errors?.location}</Text>}
 
 				<ReusableButton
 					text="Submit"

@@ -4,12 +4,8 @@ export interface Post {
 	lat?: number;
 	lng?: number;
 	imgUrl?: string;
-	userId: string;
-	postId: string;
 	type: PostType;
-	timeStamp?: string;
-	email?: string;
-	phone?: string;
+	userId?: string;
 }
 export interface Form{
 	title: string;

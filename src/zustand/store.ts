@@ -17,7 +17,7 @@ interface FormState {
 	setAllToDefault: () => void;
 }
 
-const useStore = create<FormState>((set) => ({
+const useFormStore = create<FormState>((set) => ({
 	title: "",
 	setTitle: (title: string) => set(() => ({ title })),
 	body: "",
@@ -41,4 +41,4 @@ const useStore = create<FormState>((set) => ({
 		})),
 }));
 
-export default useStore;
+export default useFormStore;

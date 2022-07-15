@@ -14,6 +14,7 @@ interface FormState {
 	setImage: (image: string) => void;
 	type: PostType;
 	setType: (type: PostType) => void;
+	setAllToDefault: () => void;
 }
 
 const useStore = create<FormState>((set) => ({
@@ -29,6 +30,15 @@ const useStore = create<FormState>((set) => ({
 	setImage: (image: string) => set(() => ({ image })),
 	type: PostType.Spotting,
 	setType: (type: PostType) => set(() => ({ type })),
+	setAllToDefault: () =>
+		set(() => ({
+			title: "",
+			body: "",
+			latitude: 61.4978,
+			longitude: 23.761,
+			image: "",
+			type: PostType.Spotting,
+		})),
 }));
 
 export default useStore;

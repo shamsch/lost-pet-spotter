@@ -12,10 +12,6 @@ import ReusableButton from "./UI/ReusableButton";
 import Separator from "./UI/Separator";
 interface AddPostFormProps {}
 
-interface IParams {
-	latitude: string | undefined;
-	longitude: string | undefined;
-}
 const AddPostForm = ({}: AddPostFormProps) => {
 	const {
 		title,
@@ -30,10 +26,12 @@ const AddPostForm = ({}: AddPostFormProps) => {
 		setImage,
 		type,
 		setType,
+		setAllToDefault,
 	} = useStore();
 
 	const handleSubmit = () => {
 		console.log("values", { title, body, latitude, longitude, image, type });
+		setAllToDefault();
 	};
 
 	return (

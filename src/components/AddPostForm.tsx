@@ -1,146 +1,98 @@
 import { useRoute } from "@react-navigation/native";
-import { Formik } from "formik";
 import { Text, TextInput, View, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import * as Yup from "yup";
 import { FormInitialValue, PostType } from "../typescript/types";
 import { Colors } from "../utils/constant";
+import useStore from "../zustand/store";
 import { ImagePicker } from "./ImagePicker";
 import LocationPicker from "./LocationPicker";
 import IconButton from "./UI/IconButton";
 import PostTypeChip from "./UI/PostTypeChip";
 import ReusableButton from "./UI/ReusableButton";
 import Separator from "./UI/Separator";
-interface AddPostFormProps {
-
-}
-
-const validationSchema = Yup.object().shape({
-	title: Yup.string().required("Please enter a title"),
-	body: Yup.string().required("Please enter a description"),
-});
+interface AddPostFormProps {}
 
 interface IParams {
 	latitude: string | undefined;
 	longitude: string | undefined;
 }
-const AddPostForm = ({ }: AddPostFormProps) => {
-	const params = useRoute().params as IParams;
+const AddPostForm = ({}: AddPostFormProps) => {
+	const {
+		title,
+		setTitle,
+		body,
+		setBody,
+		latitude,
+		setLatitude,
+		longitude,
+		setLongitude,
+		image,
+		setImage,
+		type,
+		setType,
+	} = useStore();
 
-	const handleSubmit = (values: any) => {
-		console.log(values);
+	const handleSubmit = () => {
+		console.log("values", { title, body, latitude, longitude, image, type });
 	};
-
-	const initialValues: FormInitialValue = {
-		title: "",
-		body: "",
-		type: PostType.Spotting,
-		imgUrl: "",
-		lat: "61.4978", //defaults to Tampere, Finland
-		lng: "23.7610",
-	}
 
 	return (
 		<ScrollView style={styles.container}>
-			<Formik
-				initialValues={initialValues}
-				onSubmit={(values, actions) => {
-					actions.resetForm();
-					handleSubmit(values);
-				}}
-				validationSchema={validationSchema}
-			>
-				{({
-					handleChange,
-					handleBlur,
-					handleSubmit,
-					setFieldValue,
-					values,
-					errors,
-					touched,
-				}) => (
-					<>
-						<TextInput
-							value={values.title}
-							onChangeText={handleChange("title")}
-							onBlur={handleBlur("title")}
-							placeholder="Add a concise title"
-							style={styles.input}
-						/>
-						{touched.title && errors.title && (
-							<Text style={styles.errorText}>{errors.title}</Text>
-						)}
+			<>
+				<TextInput
+					value={title}
+					onChangeText={(text) => setTitle(text)}
+					placeholder="Add a concise title"
+					style={styles.input}
+				/>
 
-						<TextInput
-							value={values.body}
-							onChangeText={handleChange("body")}
-							onBlur={handleBlur("body")}
-							placeholder="Add some helpful description"
-							style={[styles.input, styles.multilineInput]}
-							multiline={true}
-						/>
-						{touched.body && errors.body && (
-							<Text style={styles.errorText}>{errors.body}</Text>
-						)}
+				<TextInput
+					value={body}
+					onChangeText={(text) => setBody(text)}
+					placeholder="Add some helpful description"
+					style={[styles.input, styles.multilineInput]}
+					multiline={true}
+				/>
 
-						<View style={styles.chipStyle}>
-							<PostTypeChip
-								type="Spotting"
-								onPress={() =>
-									handleChange("type")("Spotting")
+				<View style={styles.chipStyle}>
+					<PostTypeChip
+						type="Spotting"
+						onPress={() => setType(PostType.Spotting)}
+						isSelected={type === PostType.Spotting}
+					/>
+					<PostTypeChip
+						type="Lost"
+						onPress={() => setType(PostType.Lost)}
+						isSelected={type === PostType.Lost}
+					/>
+				</View>
 
-								}
-								isSelected={values.type === "Spotting"}
-							/>
-							<PostTypeChip
-								type="Lost"
-								onPress={() =>
-									handleChange("type")("Lost")
-								}
-								isSelected={values.type === "Lost"}
-							/>
-						</View>
+				<ImagePicker onImagePicked={(value) => setImage(value)} />
 
-						<ImagePicker
-							onImagePicked={(value) => handleChange("imgUrl")(value)}
-						/>
+				<LocationPicker
+					latitude={latitude}
+					longitude={longitude}
+					onLocationPicked={(location) => {
+						setLatitude(Number(location.lat));
+						setLongitude(Number(location.lng));
+					}}
+				/>
 
+				<ReusableButton
+					text="Submit"
+					onPress={() => {
+						handleSubmit();
+					}}
+					backgroundColor={Colors.secondaryDark}
+					textColor={Colors.white}
+					borderColor={Colors.blackLight}
+					children={
+						<IconButton icon="send" size={24} color="white"></IconButton>
+					}
+				/>
 
-						{
-							params?.latitude && values.lat !== params.latitude && setFieldValue("lat", params.latitude)
-						}
-
-						{
-							params?.longitude && values.lng !== params.longitude && setFieldValue("lng", params.longitude)
-						}
-
-
-						<LocationPicker
-							latitude={Number(values.lat)}
-							longitude={Number(values.lng)}
-							onLocationPicked={(location) => {
-								setFieldValue("lat", location.lat?.toString());
-								setFieldValue("lng", location.lng?.toString());
-							}
-							} />
-
-						<ReusableButton
-							text="Submit"
-							onPress={() => {
-								handleSubmit();
-							}}
-							backgroundColor={Colors.secondaryDark}
-							textColor={Colors.white}
-							borderColor={Colors.blackLight}
-							children={
-								<IconButton icon="send" size={24} color="white"></IconButton>
-							}
-						/>
-
-						<Separator />
-					</>
-				)}
-			</Formik>
+				<Separator />
+			</>
 		</ScrollView>
 	);
 };

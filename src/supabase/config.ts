@@ -1,12 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from "@supabase/supabase-js";
+import Constants from "expo-constants";
 
-const supabaseUrl = YOUR_REACT_NATIVE_SUPABASE_URL
-const supabaseAnonKey = YOUR_REACT_NATIVE_SUPABASE_ANON_KEY
+const supabaseUrl = Constants?.manifest?.extra?.SUPABASE_API;
+const supabaseAnonKey = Constants?.manifest?.extra?.SUPABASE_KEY;
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  localStorage: AsyncStorage as any,
-  autoRefreshToken: true,
-  persistSession: true,
-  detectSessionInUrl: false,
-});
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);

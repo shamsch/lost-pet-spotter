@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TextInput, View, StyleSheet, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import useSupabase from "../hooks/useSupabase";
 import { Form, FormValidatorReturn, PostType } from "../typescript/types";
 import { Colors } from "../utils/constant";
 import { formValidator } from "../utils/formValidator";
@@ -11,9 +12,9 @@ import IconButton from "./UI/IconButton";
 import PostTypeChip from "./UI/PostTypeChip";
 import ReusableButton from "./UI/ReusableButton";
 import Separator from "./UI/Separator";
-interface AddPostFormProps { }
+interface AddPostFormProps {}
 
-const AddPostForm = ({ }: AddPostFormProps) => {
+const AddPostForm = ({}: AddPostFormProps) => {
 	const {
 		title,
 		setTitle,
@@ -27,9 +28,11 @@ const AddPostForm = ({ }: AddPostFormProps) => {
 		setAllToDefault,
 	} = useFormStore();
 
-	const [errors, setErrors] = useState<FormValidatorReturn|undefined>()
+	const [errors, setErrors] = useState<FormValidatorReturn | undefined>();
 
-	const handleSubmit = () => {
+	const { addToDatabase } = useSupabase();
+
+	const handleSubmit = async () => {
 		const formValues: Form = {
 			title,
 			body,
@@ -41,6 +44,8 @@ const AddPostForm = ({ }: AddPostFormProps) => {
 		setErrors(formValidator(formValues));
 		if (!errors?.body && !errors?.title && !errors?.location) {
 			setAllToDefault();
+			const result = await addToDatabase(formValues);
+			console.log(result);
 		}
 	};
 
@@ -63,7 +68,7 @@ const AddPostForm = ({ }: AddPostFormProps) => {
 					style={[styles.input, styles.multilineInput]}
 					multiline={true}
 				/>
-				
+
 				{errors?.body && <Text style={styles.errorText}>{errors.body}</Text>}
 
 				<View style={styles.chipStyle}>
@@ -83,7 +88,9 @@ const AddPostForm = ({ }: AddPostFormProps) => {
 
 				<LocationPicker />
 
-				{errors?.location && <Text style={styles.errorText}>{errors?.location}</Text>}
+				{errors?.location && (
+					<Text style={styles.errorText}>{errors?.location}</Text>
+				)}
 
 				<ReusableButton
 					text="Submit"

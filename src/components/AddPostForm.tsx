@@ -1,9 +1,10 @@
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { TextInput, View, StyleSheet, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import useSupabase from "../hooks/useSupabase";
-import { Form, FormValidatorReturn, PostType } from "../typescript/types";
-import { Colors } from "../utils/constant";
+import { Form, FormValidatorReturn, PostType, RootStackParamList } from "../typescript/types";
+import { Colors, DEFAULT_LOCATION } from "../utils/constant";
 import { formValidator } from "../utils/formValidator";
 import useFormStore from "../zustand/store";
 import { ImagePicker } from "./ImagePicker";
@@ -12,9 +13,12 @@ import IconButton from "./UI/IconButton";
 import PostTypeChip from "./UI/PostTypeChip";
 import ReusableButton from "./UI/ReusableButton";
 import Separator from "./UI/Separator";
+
 interface AddPostFormProps {}
 
 const AddPostForm = ({}: AddPostFormProps) => {
+	const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
 	const {
 		title,
 		setTitle,
@@ -28,7 +32,13 @@ const AddPostForm = ({}: AddPostFormProps) => {
 		setAllToDefault,
 	} = useFormStore();
 
-	const [errors, setErrors] = useState<FormValidatorReturn | undefined>();
+	const [errors, setErrors] = useState<FormValidatorReturn>(
+		{
+			title: "",
+			body: "",
+			location: "",
+		}
+	);
 
 	const { addToDatabase, uploadImage } = useSupabase();
 
@@ -41,10 +51,16 @@ const AddPostForm = ({}: AddPostFormProps) => {
 			image,
 			type,
 		};
-		setErrors(formValidator(formValues));
-		if (!errors?.body && !errors?.title && !errors?.location) {
+		const formErrors = formValidator(formValues);
+		
+		// store the errors in the state so as to show the error warnings in the form
+		setErrors(formErrors);
+
+		// if there is no error, then send back to backend
+		if (formErrors.title === "" && formErrors.body === "" && formErrors.location === "") {
+			// also reset the form to default
 			setAllToDefault();
-			let result; 
+
 			if(image){
 				const res = await uploadImage(image);
 				console.log(res)
@@ -52,12 +68,14 @@ const AddPostForm = ({}: AddPostFormProps) => {
 					...formValues,
 					image: res!=="N/A" && res.publicURL? res.publicURL : "N/A",
 				};
-				result = await addToDatabase(formValuesWithImageLink);
+				await addToDatabase(formValuesWithImageLink);
 			}
 			else{
-				result = await addToDatabase({...formValues, image: "N/A"});
+				await addToDatabase({...formValues, image: "N/A"});
 			}
-			console.log(result);
+
+			// navigate to the home screen
+			navigation.navigate("AllPost");
 		}
 	};
 
@@ -71,17 +89,17 @@ const AddPostForm = ({}: AddPostFormProps) => {
 					style={styles.input}
 				/>
 
-				{errors?.title && <Text style={styles.errorText}>{errors.title}</Text>}
+				{errors.title!=="" && <Text style={styles.errorText}>{errors.title}</Text>}
 
 				<TextInput
 					value={body}
 					onChangeText={(text) => setBody(text)}
-					placeholder="Add some helpful description"
+					placeholder="Please add your contact info in description for communication"
 					style={[styles.input, styles.multilineInput]}
 					multiline={true}
 				/>
 
-				{errors?.body && <Text style={styles.errorText}>{errors.body}</Text>}
+				{errors.body!=="" && <Text style={styles.errorText}>{errors.body}</Text>}
 
 				<View style={styles.chipStyle}>
 					<PostTypeChip
@@ -100,7 +118,7 @@ const AddPostForm = ({}: AddPostFormProps) => {
 
 				<LocationPicker />
 
-				{errors?.location && (
+				{errors!=="" && (
 					<Text style={styles.errorText}>{errors?.location}</Text>
 				)}
 
@@ -128,7 +146,6 @@ export default AddPostForm;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: Colors.secondaryLight,
 		padding: 10,
 	},
 	input: {

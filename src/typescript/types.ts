@@ -1,11 +1,11 @@
 export interface Post {
 	title: string;
 	body: string;
-	lat?: number;
-	lng?: number;
-	imgUrl?: string;
+	lat: number;
+	lng: number;
+	imgUrl: string;
 	type: PostType;
-	userId?: string;
+	id: string;
 }
 export interface Form{
 	title: string;

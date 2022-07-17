@@ -10,7 +10,7 @@ export const Colors = {
     tertiary: '#cf9fff',
     tertiaryDark: '#da70d6',
     tertiaryLight: '#e6e6fa',
-    white: "#fafff0",
+    white: "#F5F5F5",
     defaultWhite: "#ffffff",
     black: '#343434',
     blackLight: '#36454F',

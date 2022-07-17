@@ -30,13 +30,15 @@ const useSupabase = () => {
 			type: "image/jpg",
 		} as any);
 
-		const {data, error} = await supabase.storage.from("lost-pet-spotter").upload(`/photos/${uuidv4()}.png`, fileData);
+		const id = uuidv4();
+
+		const {data, error} = await supabase.storage.from("lost-pet-spotter").upload(`/photos/${id}.png`, fileData);
 
 		if (error) {
 			console.log(error);
 		}
 		if (data){
-			const imageUrl = await supabase.storage.from("lost-pet-spotter").getPublicUrl(data.Key);
+			const imageUrl = await supabase.storage.from("lost-pet-spotter").getPublicUrl(`photos/${id}.png`);
 			return imageUrl;
 		}
 		return "N/A";

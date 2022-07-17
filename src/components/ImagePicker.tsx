@@ -12,6 +12,7 @@ import { Colors } from "../utils/constant";
 import ReusableButton from "./UI/ReusableButton";
 import IconButton from "./UI/IconButton";
 import useFormStore from "../zustand/store";
+import { Avatar } from "react-native-paper";
 
 export const ImagePicker = () => {
 	const { image, setImage } = useFormStore();
@@ -115,7 +116,12 @@ export const ImagePicker = () => {
 						textColor={Colors.white}
 						borderColor={Colors.secondaryDark}
 						children={
-							<IconButton icon="camera" size={24} color="white"></IconButton>
+							<Avatar.Icon
+								size={30}
+								icon="camera"
+								color={Colors.white}
+								style={{ backgroundColor: Colors.secondary }}
+							/>
 						}
 					/>
 				</View>
@@ -128,7 +134,12 @@ export const ImagePicker = () => {
 						textColor={Colors.white}
 						borderColor={Colors.secondaryDark}
 						children={
-							<IconButton icon="images" size={24} color="white"></IconButton>
+							<Avatar.Icon
+								size={30}
+								icon="image"
+								color={Colors.white}
+								style={{ backgroundColor: Colors.secondary }}
+							/>
 						}
 					/>
 				</View>

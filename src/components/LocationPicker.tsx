@@ -1,6 +1,6 @@
 import { View, Alert, Image, StyleSheet } from "react-native";
 import React from "react";
-import { MapData, RootStackParamList } from "../typescript/types";
+import { RootStackParamList } from "../typescript/types";
 import {
 	useForegroundPermissions,
 	PermissionStatus,
@@ -10,10 +10,10 @@ import {
 import { getStaticMapUrl } from "../utils/googleMapStatic";
 import ReusableButton from "./UI/ReusableButton";
 import { Colors } from "../utils/constant";
-import IconButton from "./UI/IconButton";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import useFormStore from "../zustand/store";
+import { Avatar } from "react-native-paper";
 
 const LocationPicker = () => {
 	const { latitude, longitude, setLatitude, setLongitude } = useFormStore();
@@ -75,7 +75,14 @@ const LocationPicker = () => {
 					textColor="white"
 					backgroundColor={Colors.secondary}
 					borderColor={Colors.secondaryDark}
-					children={<IconButton icon="map" size={24} color="white" />}
+					children={
+						<Avatar.Icon
+							size={30}
+							icon="crosshairs"
+							color={Colors.white}
+							style={{ backgroundColor: Colors.secondary }}
+						/>
+					}
 					onPress={getLocation}
 				/>
 				<ReusableButton
@@ -84,10 +91,11 @@ const LocationPicker = () => {
 					backgroundColor={Colors.secondary}
 					borderColor={Colors.secondaryDark}
 					children={
-						<IconButton
-							icon="navigate-circle-outline"
-							size={24}
-							color="white"
+						<Avatar.Icon
+							size={30}
+							icon="map"
+							color={Colors.white}
+							style={{ backgroundColor: Colors.secondary }}
 						/>
 					}
 					onPress={toSetLocationStack}

@@ -2,14 +2,14 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { TextInput, View, StyleSheet, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import { Avatar } from "react-native-paper";
 import useSupabase from "../hooks/useSupabase";
 import { Form, FormValidatorReturn, PostType, RootStackParamList } from "../typescript/types";
-import { Colors, DEFAULT_LOCATION } from "../utils/constant";
+import { Colors } from "../utils/constant";
 import { formValidator } from "../utils/formValidator";
 import useFormStore from "../zustand/store";
 import { ImagePicker } from "./ImagePicker";
 import LocationPicker from "./LocationPicker";
-import IconButton from "./UI/IconButton";
 import PostTypeChip from "./UI/PostTypeChip";
 import ReusableButton from "./UI/ReusableButton";
 import Separator from "./UI/Separator";
@@ -131,7 +131,12 @@ const AddPostForm = ({}: AddPostFormProps) => {
 					textColor={Colors.white}
 					borderColor={Colors.blackLight}
 					children={
-						<IconButton icon="send" size={24} color="white"></IconButton>
+						<Avatar.Icon
+							size={25}
+							icon="check"
+							color={Colors.white}
+							style={{ marginRight: 15 }}
+						/>
 					}
 				/>
 
@@ -147,6 +152,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		padding: 10,
+		backgroundColor: Colors.defaultWhite,
 	},
 	input: {
 		borderWidth: 1,

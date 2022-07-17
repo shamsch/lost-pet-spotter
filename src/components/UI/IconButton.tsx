@@ -19,7 +19,7 @@ const IconButton = ({ icon, size, color, onPress }: IconButtonProps) => {
 
 const styles = StyleSheet.create({
 	button: {
-		marginHorizontal: 5,
+		marginHorizontal: 15,
 	},
 });
 export default IconButton;

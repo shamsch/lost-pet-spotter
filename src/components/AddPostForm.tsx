@@ -135,7 +135,7 @@ const AddPostForm = ({}: AddPostFormProps) => {
 							size={25}
 							icon="check"
 							color={Colors.white}
-							style={{ marginRight: 15 }}
+							style={{ marginRight: 15, backgroundColor: Colors.secondaryDark }}
 						/>
 					}
 				/>

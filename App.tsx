@@ -5,8 +5,6 @@ import 'react-native-get-random-values'
 import AllPost from "./src/screens/AllPost";
 import PostView from "./src/screens/PostView";
 import AddPost from "./src/screens/AddPost";
-import SignUp from "./src/screens/SignUp";
-import Login from "./src/screens/Login";
 import MapScreen from "./src/screens/MapScreen";
 import IconButton from "./src/components/UI/IconButton";
 import "react-native-gesture-handler";
@@ -60,8 +58,6 @@ export default function App() {
 								},
 							})}
 						/>
-						<Stack.Screen name="SignUp" component={SignUp} />
-						<Stack.Screen name="LogIn" component={Login} />
 						<Stack.Screen
 							name="MapView"
 							component={MapScreen}

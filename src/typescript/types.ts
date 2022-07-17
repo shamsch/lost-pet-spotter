@@ -39,8 +39,6 @@ export interface MapData {
 export type RootStackParamList = {
 	AllPost: undefined;
 	AddPost: undefined;
-	SignUp: undefined;
-	LogIn: undefined;
 	MapView: undefined;
 	PostView: {post: Post};
 };

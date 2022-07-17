@@ -30,7 +30,7 @@ const AddPostForm = ({}: AddPostFormProps) => {
 
 	const [errors, setErrors] = useState<FormValidatorReturn | undefined>();
 
-	const { addToDatabase } = useSupabase();
+	const { addToDatabase, uploadImage } = useSupabase();
 
 	const handleSubmit = async () => {
 		const formValues: Form = {
@@ -44,7 +44,19 @@ const AddPostForm = ({}: AddPostFormProps) => {
 		setErrors(formValidator(formValues));
 		if (!errors?.body && !errors?.title && !errors?.location) {
 			setAllToDefault();
-			const result = await addToDatabase(formValues);
+			let result; 
+			if(image){
+				const res = await uploadImage(image);
+				console.log(res)
+				const formValuesWithImageLink: Form = {
+					...formValues,
+					image: res!=="N/A" && res.publicURL? res.publicURL : "N/A",
+				};
+				result = await addToDatabase(formValuesWithImageLink);
+			}
+			else{
+				result = await addToDatabase({...formValues, image: "N/A"});
+			}
 			console.log(result);
 		}
 	};

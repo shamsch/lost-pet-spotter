@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-
+import 'react-native-get-random-values'
 import AllPost from "./src/screens/AllPost";
 import PostView from "./src/screens/PostView";
 import AddPost from "./src/screens/AddPost";

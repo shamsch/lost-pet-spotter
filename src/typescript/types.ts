@@ -6,7 +6,7 @@ export interface Post {
 	imgUrl: string;
 	type: PostType;
 	id: string;
-	createdAt: string;
+	created_at: string;
 	city: string;
 }
 export interface Form{

@@ -33,7 +33,7 @@ export const DEFAULT_LOCATION = {
 export const DUMMY_POSTS: Post[] = [
     {
         id: "1",
-        createdAt: "2021-01-01T00:00:00.000Z",
+        created_at: "2021-01-01T00:00:00.000Z",
         title: "HELP! Lost my dog",
         body: "I lost my dog. I'm looking for him.",
         lat: 51.5072,
@@ -45,7 +45,7 @@ export const DUMMY_POSTS: Post[] = [
     {
         id: "2",
         title: "Found a cat near my house",
-        createdAt: "2019-01-01T00:00:00.000Z",
+        created_at: "2019-01-01T00:00:00.000Z",
         body: "I found this cat. Contact me. Phone number: 123456789. Email address: john.doe@gmail.com",
         lat: 61.4978,
         lng: 23.761,
@@ -56,7 +56,7 @@ export const DUMMY_POSTS: Post[] = [
     {
         id: "3",
         title: "Lost my cat, please help me find him",
-        createdAt: "2021-03-03T00:00:00.000Z",
+        created_at: "2021-03-03T00:00:00.000Z",
         body: "I lost this cat. Last seen at the apartment. Phone number: 123456789. Email address: user@gmail.com",
         city: "Melbourne",
         lat: -37.8136,
@@ -67,7 +67,7 @@ export const DUMMY_POSTS: Post[] = [
     {
         id: "4",
         title: "HELP my cat is missing",
-        createdAt: "2022-04-02T00:00:00.000Z",
+        created_at: "2022-04-02T00:00:00.000Z",
         body: "I lost this cat. Last seen at the apartment. Phone number: 123456789. Email address: john@doe.com",
         city: "Dubai",
         lat: 25.2048,
@@ -78,7 +78,7 @@ export const DUMMY_POSTS: Post[] = [
     {
         id: "5",
         title: "Lost my pet Zebra",
-        createdAt: "2022-06-01T00:00:00.000Z",
+        created_at: "2022-06-01T00:00:00.000Z",
         body: "I lost this this pet. Last seen in Africa. Phone number: 123456789. Email address: weridpetguy@gmail.com",
         city: "Munich",
         lat: 48.1351,

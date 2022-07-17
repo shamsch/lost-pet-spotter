@@ -1,5 +1,5 @@
 import { supabase } from "../supabase/config";
-import { Form } from "../typescript/types";
+import { Form, Post } from "../typescript/types";
 import { v4 as uuidv4 } from 'uuid';
 
 const useSupabase = () => {
@@ -11,7 +11,7 @@ const useSupabase = () => {
 				lat: formValue.latitude,
 				lng: formValue.longitude,
 				type: formValue.type,
-				imageUrl: formValue.image,
+				imgUrl: formValue.image,
 				city: formValue.city,
 			},
 		]);
@@ -44,7 +44,24 @@ const useSupabase = () => {
 		return "N/A";
 	}
 
-	return { addToDatabase, uploadImage };
+	const getPosts = async (numberOfPost: number, ascending: boolean) => {
+		const { data, error } = await supabase.from("post").select().order("created_at", {ascending}).limit(numberOfPost);
+		if (error) {
+			console.log(error);
+		}
+		return data as Post[];
+	}
+
+	const getPostByCity = async (city: string) => {
+		const { data, error } = await supabase.from("post").select().order("created_at").textSearch("city", city);
+		if (error) {
+			console.log(error);
+		}
+		return data as Post[];
+	}
+
+
+	return { addToDatabase, uploadImage, getPosts, getPostByCity};
 };
 
 export default useSupabase;

@@ -20,7 +20,7 @@ const SinglePost = ({ post }: SinglePostProps) => {
             <Card style={styles.container}>
                 <Card.Title
                     title={post.title}
-                    subtitle={format(post.createdAt)}
+                    subtitle={format(post.created_at)}
                     titleNumberOfLines={4}
                     left={(props) => (
                         <Avatar.Icon

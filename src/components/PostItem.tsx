@@ -30,7 +30,7 @@ const PostItem = ({ post }: PostItemProps) => {
 				<Card>
 					<Card.Title
 						title={post.title}
-						subtitle={format(post.createdAt)}
+						subtitle={format(post.created_at)}
 						titleNumberOfLines={4}
 						left={(props) => (
 							<Avatar.Icon

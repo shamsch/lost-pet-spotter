@@ -6,6 +6,8 @@ export interface Post {
 	imgUrl: string;
 	type: PostType;
 	id: string;
+	createdAt: string;
+	city: string;
 }
 export interface Form{
 	title: string;
@@ -14,6 +16,7 @@ export interface Form{
 	longitude: number;
 	type: PostType;
 	image?: string;
+	city?: string;
 }
 
 export type FormValidatorReturn = {

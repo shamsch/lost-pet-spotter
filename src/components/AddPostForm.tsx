@@ -1,6 +1,6 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { TextInput, View, StyleSheet, Text } from "react-native";
+import { TextInput, View, StyleSheet, Text, ActivityIndicator } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Avatar } from "react-native-paper";
 import useSupabase from "../hooks/useSupabase";
@@ -41,6 +41,8 @@ const AddPostForm = ({}: AddPostFormProps) => {
 		}
 	);
 
+	const [isLoading, setIsLoading] = useState(false);
+
 	const { addToDatabase, uploadImage } = useSupabase();
 
 	const handleSubmit = async () => {
@@ -61,12 +63,12 @@ const AddPostForm = ({}: AddPostFormProps) => {
 		if (formErrors.title === "" && formErrors.body === "" && formErrors.location === "") {
 			// also reset the form to default
 			setAllToDefault();
-
+			// set loading to true
+			setIsLoading(true);
 			if(image){
+				// upload image to supabase
 				const res = await uploadImage(image);
 				const city = await getReadableLocation(latitude, longitude);
-				console.log(city)
-				console.log(res)
 				const formValuesWithImageLink: Form = {
 					...formValues,
 					image: res!=="N/A" && res.publicURL? res.publicURL : "N/A",
@@ -80,8 +82,15 @@ const AddPostForm = ({}: AddPostFormProps) => {
 
 			// navigate to the home screen
 			navigation.navigate("AllPost");
+
+			// set loading to false
+			setIsLoading(false);
 		}
 	};
+
+	if (isLoading) {
+		return <ActivityIndicator size="large" style={styles.loading}/>;
+	}
 
 	return (
 		<ScrollView style={styles.container}>
@@ -157,6 +166,11 @@ const styles = StyleSheet.create({
 		flex: 1,
 		padding: 10,
 		backgroundColor: Colors.defaultWhite,
+	},
+	loading:{
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
 	},
 	input: {
 		borderWidth: 1,

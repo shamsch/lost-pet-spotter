@@ -1,11 +1,16 @@
-import { View, Text } from 'react-native'
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react'
+import SinglePost from '../components/SinglePost';
+import { Post, RootStackParamList } from '../typescript/types'
 
-const PostView = () => {
+type PostViewProps = NativeStackScreenProps<RootStackParamList, "PostView">;
+
+const PostView = ({ route }: PostViewProps) => {
+  const { post } = route.params
   return (
-    <View>
-      <Text>PostView</Text>
-    </View>
+    <>
+      <SinglePost post={post} />
+    </>
   )
 }
 

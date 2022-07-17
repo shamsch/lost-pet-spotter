@@ -1,9 +1,10 @@
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
-import { Post, PostType } from "../typescript/types";
+import { Post, PostType, RootStackParamList } from "../typescript/types";
 import { Card, Avatar, Chip } from "react-native-paper";
 import { Colors, DEFAULT_IMAGE } from "../utils/constant";
 import { useRef } from "react";
 import { format } from 'timeago.js'
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 interface PostItemProps {
 	post: Post;
@@ -11,6 +12,7 @@ interface PostItemProps {
 
 const PostItem = ({ post }: PostItemProps) => {
 	const colorRef = useRef<string>(Colors.tertiary)
+	const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
 	if (post.type === PostType.Lost) {
 		colorRef.current = Colors.primary
@@ -19,7 +21,7 @@ const PostItem = ({ post }: PostItemProps) => {
 	}
 
 	const handlePress = () => {
-		console.log(post.id)
+		navigation.navigate("PostView", { post })
 	}
 
 	

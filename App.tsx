@@ -42,7 +42,14 @@ export default function App() {
 								),
 							})}
 						/>
-						<Stack.Screen name="PostDetail" component={PostView} />
+						<Stack.Screen name="PostView" component={PostView} options={
+							({ navigation, route }) => ({
+								title: `${route.params.post.type} in ${route.params.post.city}`,
+								headerStyle: {
+									backgroundColor: Colors.primaryLight,
+								}
+							})
+						}/>
 						<Stack.Screen
 							name="AddPost"
 							component={AddPost}

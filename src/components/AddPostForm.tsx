@@ -7,6 +7,7 @@ import useSupabase from "../hooks/useSupabase";
 import { Form, FormValidatorReturn, PostType, RootStackParamList } from "../typescript/types";
 import { Colors } from "../utils/constant";
 import { formValidator } from "../utils/formValidator";
+import { getReadableLocation } from "../utils/googleMapStatic";
 import useFormStore from "../zustand/store";
 import { ImagePicker } from "./ImagePicker";
 import LocationPicker from "./LocationPicker";
@@ -63,10 +64,13 @@ const AddPostForm = ({}: AddPostFormProps) => {
 
 			if(image){
 				const res = await uploadImage(image);
+				const city = await getReadableLocation(latitude, longitude);
+				console.log(city)
 				console.log(res)
 				const formValuesWithImageLink: Form = {
 					...formValues,
 					image: res!=="N/A" && res.publicURL? res.publicURL : "N/A",
+					city,
 				};
 				await addToDatabase(formValuesWithImageLink);
 			}

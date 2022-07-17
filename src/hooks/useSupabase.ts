@@ -12,6 +12,7 @@ const useSupabase = () => {
 				lng: formValue.longitude,
 				type: formValue.type,
 				imageUrl: formValue.image,
+				city: formValue.city,
 			},
 		]);
 		if (error) {

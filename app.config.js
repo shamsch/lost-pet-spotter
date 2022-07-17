@@ -2,7 +2,7 @@ import "dotenv/config";
 
 export default {
 	expo: {
-		name: "lost-pet-spotter",
+		name: "Lost Pet Finder",
 		slug: "lost-pet-spotter",
 		extra: {
 			API_KEY: process.env.GOOGLE_API_KEY,
@@ -23,9 +23,12 @@ export default {
 		},
 		assetBundlePatterns: ["**/*"],
 		ios: {
+			
 			supportsTablet: true,
 		},
 		android: {
+			versionCode: 1,
+			package: "com.lostpetfinder",
 			adaptiveIcon: {
 				foregroundImage: "./assets/adaptive-icon.png",
 				backgroundColor: "#FFFFFF",

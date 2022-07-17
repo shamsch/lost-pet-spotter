@@ -1,0 +1,33 @@
+{
+  "cli": {
+    "version": ">= 0.55.1"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "GOOGLE_API_KEY": "AIzaSyCPrLdFXmRgS7TMK7LYLCxyLhjlYH0--sg",
+        "SUPABASE_API":"https://yaqovcsotvbjnqbrbqcq.supabase.co",
+        "SUPABASE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlhcW92Y3NvdHZiam5xYnJicWNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTc5MjE3MDMsImV4cCI6MTk3MzQ5NzcwM30.qYnD4wQioneqcVflkluqxCCTfV9o8U_fz8n8YWGtr2s"
+      }
+    },
+    "preview2": {
+      "android": {
+        "gradleCommand": ":app:assembleRelease"
+      }
+    },
+    "preview3": {
+      "developmentClient": true
+    },
+    "production": {}
+  },
+  "submit": {
+    "production": {}
+  }
+}

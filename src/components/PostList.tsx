@@ -6,16 +6,14 @@ interface PostListProps {
     posts: Post[]
 }
 
-
 const PostList = ({ posts }: PostListProps) => {
     return (
         <>
             <FlatList
                 data={posts}
-                keyExtractor={(post) => post.postId.toString()}
-                renderItem={({ item }) => {
-                    return <PostItem post={item} />
-                }
+                keyExtractor={(post) => post.id}
+                renderItem={({ item }) =>
+                    <PostItem post={item} />
                 }
             />
         </>

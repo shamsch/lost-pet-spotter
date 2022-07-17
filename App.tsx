@@ -28,7 +28,7 @@ export default function App() {
 							name="AllPost"
 							component={AllPost}
 							options={({ navigation }) => ({
-								title: "All Postings",
+								title: "All Lost Found & Spotted",
 								headerStyle: {
 									backgroundColor: Colors.primaryLight,
 								},
@@ -59,7 +59,7 @@ export default function App() {
 							name="MapView"
 							component={MapScreen}
 							options={({ navigation }) => ({
-								title: "Select location",
+								title: "Select A location",
 								headerStyle: {
 									backgroundColor: Colors.primaryLight,
 								},

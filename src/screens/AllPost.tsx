@@ -1,6 +1,5 @@
 import { useIsFocused } from '@react-navigation/native'
 import { useEffect, useState } from 'react'
-import { View, Text } from 'react-native'
 import PostList from '../components/PostList'
 import SearchByCity from '../components/SearchByCity'
 import useSupabase from '../hooks/useSupabase'

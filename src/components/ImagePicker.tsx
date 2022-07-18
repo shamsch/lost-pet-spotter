@@ -10,7 +10,6 @@ import {
 import { Alert, Image, View, Text, StyleSheet } from "react-native";
 import { Colors } from "../utils/constant";
 import ReusableButton from "./UI/ReusableButton";
-import IconButton from "./UI/IconButton";
 import useFormStore from "../zustand/store";
 import { Avatar } from "react-native-paper";
 

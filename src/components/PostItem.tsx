@@ -1,4 +1,4 @@
-import { Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { Post, PostType, RootStackParamList } from "../typescript/types";
 import { Card, Avatar, Chip } from "react-native-paper";
 import { Colors, DEFAULT_IMAGE } from "../utils/constant";

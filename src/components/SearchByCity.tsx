@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import React, {Dispatch, SetStateAction, useState} from 'react'
+import React from 'react'
 import { Searchbar } from 'react-native-paper';
 
 interface SearchByCityProps {

@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react'
 import SinglePost from '../components/SinglePost';
-import { Post, RootStackParamList } from '../typescript/types'
+import { RootStackParamList } from '../typescript/types'
 
 type PostViewProps = NativeStackScreenProps<RootStackParamList, "PostView">;
 

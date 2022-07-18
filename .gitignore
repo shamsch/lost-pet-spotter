@@ -15,4 +15,4 @@ web-build/
 .DS_Store
 
 # eas file 
-eas.json
+*.json

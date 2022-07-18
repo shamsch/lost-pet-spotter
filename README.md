@@ -15,17 +15,20 @@ APK file in the Dropbox folder
 * Loads latest posts on the home page
 * See all posts by a city/town
 
-## App Screenshots emoji 📷
+## App Screenshots 📷
 
+<p float="left">
 <img src="https://i.imgur.com/1PdaBd6.jpg" width="200">
 <img src="https://i.imgur.com/jY7erhV.jpg" width="200">
 <img src="https://i.imgur.com/ONV5BXT.jpg" width="200">
 <img src="https://i.imgur.com/3KEpsXy.jpg" width="200">
-<img src="https://i.imgur.com/bDqcbPT.jpg" width="200">
-<img src="https://i.imgur.com/1PdaBd6.jpg" width="200">
-<img src="https://i.imgur.com/XULPQw5.jpg" width="200">
-<img src="https://i.imgur.com/2pgAD2N.jpg" width="200">
+<p/>
 
+<p float="left">
+<img src="https://i.imgur.com/XULPQw5.jpg" width="200">
+<img src="https://i.imgur.com/bDqcbPT.jpg" width="200">
+<img src="https://i.imgur.com/2pgAD2N.jpg" width="200">
+<p/>
 
 ## Possible Improvements 🏄🏻‍♂️
 * Authenticate users 

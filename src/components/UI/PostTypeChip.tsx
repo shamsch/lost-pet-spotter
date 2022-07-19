@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         margin: 1,
         padding: 5,
         borderRadius: 5,
-        backgroundColor: Colors.tertiaryLight,
+        backgroundColor: Colors.tertiaryDark,
         width: "35%",
         textAlign: "center",
 

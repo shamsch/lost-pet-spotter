@@ -27,7 +27,7 @@ const PostItem = ({ post }: PostItemProps) => {
 	
 	return (
 			<Pressable onPress={handlePress} style={()=> [styles.container]}>
-				<Card>
+				<Card style={{backgroundColor: Colors.grayLight}}>
 					<Card.Title
 						title={post.title}
 						subtitle={format(post.created_at)}

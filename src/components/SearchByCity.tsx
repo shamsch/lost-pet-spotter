@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native'
 import React from 'react'
 import { Searchbar } from 'react-native-paper';
+import { Colors } from '../utils/constant';
 
 interface SearchByCityProps {
   search: string|undefined;
@@ -25,5 +26,7 @@ const styles = StyleSheet.create({
   searchbar: {
     marginVertical: 10,
     marginHorizontal: 5,
+    borderRadius: 10,
+    backgroundColor: Colors.grayDark
   },
 })

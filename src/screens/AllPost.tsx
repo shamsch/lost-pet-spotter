@@ -1,10 +1,11 @@
 import { useIsFocused } from '@react-navigation/native'
 import { useEffect, useState } from 'react'
+import { View } from 'react-native'
 import PostList from '../components/PostList'
 import SearchByCity from '../components/SearchByCity'
 import useSupabase from '../hooks/useSupabase'
 import { Post } from '../typescript/types'
-import { DUMMY_POSTS } from '../utils/constant'
+import { Colors, DUMMY_POSTS } from '../utils/constant'
 
 const AllPost = () => {
   const { getPosts, getPostByCity } = useSupabase()
@@ -25,7 +26,7 @@ const AllPost = () => {
   }, [search, ascending, focused])
 
   return (
-    <>
+    <View style={{backgroundColor: Colors.tertiaryLight}}>
       <SearchByCity
         search={search}
         setSearch={setSearch}
@@ -33,7 +34,7 @@ const AllPost = () => {
       <PostList
         posts={posts ? posts : DUMMY_POSTS}
       />
-    </>
+    </View>
 
   )
 }

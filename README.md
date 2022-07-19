@@ -3,7 +3,7 @@
 This is a hobby project that I made after making my first React Native App. It is a pet lost and found app that allows users to post lost pets and find them. 
 
 ### Download the APK for Android 📱
-[![Download the APK for Android](https://img.shields.io/badge/Download-Android-blue.svg?style=flat-square)](https://www.dropbox.com/s/c7r8curwsbw8cll/34649bac-92c1-49b7-ab33-4f985a9d2afa-855c9e1e571642bda851b99ebdb4a779.apk?dl=0)
+[![Download the APK for Android](https://img.shields.io/badge/Download-Android-blue.svg?style=flat-square)](https://www.dropbox.com/s/zbj5i2yiw0jj1fa/0bb03699-cd16-41a7-88a7-72b86ae58ec7-98694c683cda41e08439b875945b3dc4.apk?dl=0)
 <br/>
 APK file in the Dropbox folder
 
@@ -46,6 +46,6 @@ APK file in the Dropbox folder
 
 ## TODO 🔧
 * Write unit tests ASAP 
-* Fix bug - opening map view causes app to crash
+* ~~Fix bug - opening map view causes app to crash~~
 * Implement the improvements listed above
 

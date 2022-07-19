@@ -20,7 +20,9 @@ const SinglePost = ({ post }: SinglePostProps) => {
             <Card style={styles.container}>
                 <Card.Title
                     title={post.title}
+                    titleStyle={{ color: Colors.black }}
                     subtitle={format(post.created_at)}
+                    subtitleStyle={{ color: Colors.black }}
                     titleNumberOfLines={4}
                     left={(props) => (
                         <Avatar.Icon
@@ -96,6 +98,7 @@ const styles = StyleSheet.create({
     description: {
         fontSize: 18,
         marginVertical: 10,
+        color: Colors.black
     },
     image: {
         width: "100%",

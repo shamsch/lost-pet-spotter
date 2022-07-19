@@ -30,7 +30,9 @@ const PostItem = ({ post }: PostItemProps) => {
 				<Card style={{backgroundColor: Colors.grayLight}}>
 					<Card.Title
 						title={post.title}
+						titleStyle={{color: Colors.black}}
 						subtitle={format(post.created_at)}
+						subtitleStyle={{color: Colors.black}}
 						titleNumberOfLines={4}
 						left={(props) => (
 							<Avatar.Icon

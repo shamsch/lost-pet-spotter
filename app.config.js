@@ -5,7 +5,6 @@ export default {
 		name: "Lost Pet Finder",
 		slug: "lost-pet-spotter",
 		extra: {
-			API_KEY: process.env.GOOGLE_API_KEY,
 			SUPABASE_API: process.env.SUPABASE_API,
 			SUPABASE_KEY: process.env.SUPABASE_KEY,
 		},

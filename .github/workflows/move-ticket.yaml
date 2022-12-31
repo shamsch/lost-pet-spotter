@@ -20,7 +20,7 @@ jobs:
       - name: Query tickets in in-progress column
         run: |
           curl -X GET \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Authorization: Bearer ${{ secrets.TOKEN }}" \
             -H "Accept: application/vnd.github+json" \
             "https://api.github.com/projects/columns/$FROM_COL/cards" > cards.json
       
@@ -28,7 +28,7 @@ jobs:
         run: |
           for card in $(jq -r '.[] | .id' cards.json); do
             curl -X POST \
-              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Authorization: Bearer ${{ secrets.TOKEN }}" \
               -H "Accept: application/vnd.github+json" \
               -d '{"column_id": $TO_COL,"position":"bottom"}' \
               "https://api.github.com/projects/columns/cards/$card/moves"

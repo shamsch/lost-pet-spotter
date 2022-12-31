@@ -34,4 +34,7 @@ jobs:
               "https://api.github.com/projects/columns/cards/$card/moves"
           done
           
+      - name: Move tickets to Done column
+        run: echo $TO_COL
+          
     

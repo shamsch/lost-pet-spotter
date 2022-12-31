@@ -27,7 +27,14 @@ jobs:
       - name: Move tickets to Done column
         run: |
           for card in $(jq -r '.[] | .id' cards.json); do
-            echo $card
+             curl --request POST \
+              --url https://api.github.com/projects/columns/cards/$card/moves \
+              --header 'Authorization: Bearer ${{ secrets.TOKEN }}' \
+              --header 'Content-Type: application/json' \
+              --data '{
+                    "column_id": $TO_COL,
+                    "position":"bottom"
+            }'
           done
           
     

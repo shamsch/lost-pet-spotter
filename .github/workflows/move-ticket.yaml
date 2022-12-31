@@ -37,4 +37,7 @@ jobs:
             }'
           done
           
+      - name: Move tickets to Done column
+        run: echo $TO_COL
+          
     

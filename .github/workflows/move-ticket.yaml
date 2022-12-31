@@ -31,13 +31,7 @@ jobs:
               --url https://api.github.com/projects/columns/cards/$card/moves \
               --header 'Authorization: Bearer ${{ secrets.TOKEN }}' \
               --header 'Content-Type: application/json' \
-              --data '{
-                    "column_id": $TO_COL,
-                    "position":"bottom"
-            }'
-          done
-          
-      - name: Move tickets to Done column
-        run: echo $TO_COL
+              --data '{"column_id": 19283384, "position":"bottom"}'
+          done;
           
     
